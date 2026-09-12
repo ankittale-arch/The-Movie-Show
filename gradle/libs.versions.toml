@@ -28,6 +28,10 @@ room = "2.7.2"
 # build failure. Revisit once this project's Kotlin version moves past 2.3.
 coil = "3.3.0"
 
+# Trailer playback — wraps the YouTube IFrame Player API in a proper Android view with reliable
+# play/pause/lifecycle handling, instead of hand-rolling an <iframe> inside a raw WebView.
+androidYoutubePlayer = "13.0.0"
+
 # Coroutines
 kotlinxCoroutines = "1.10.2"
 
@@ -74,6 +78,8 @@ kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
 coil-network-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil" }
 coil-gif = { group = "io.coil-kt.coil3", name = "coil-gif", version.ref = "coil" }
+
+android-youtube-player = { group = "com.pierfrancescosoffritti.androidyoutubeplayer", name = "core", version.ref = "androidYoutubePlayer" }
 
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }

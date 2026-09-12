@@ -155,6 +155,7 @@ class MovieRepositoryImpl @Inject constructor(
                 originalLanguage = detail?.originalLanguage,
                 genres = genres.map { it.toDomain() },
                 cast = cast.map { it.toDomain() },
+                trailerYoutubeKey = detail?.trailerYoutubeKey,
             )
         }
     }.flowOn(ioDispatcher)

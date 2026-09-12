@@ -3,7 +3,7 @@ package com.ankitt.themovieshow.core.network.model
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-/** Response of `GET movie/{id}?append_to_response=credits` — details and cast in one call. */
+/** Response of `GET movie/{id}?append_to_response=credits,videos` — details, cast and trailers. */
 @Serializable
 data class MovieDetailDto(
     @SerialName("id") val id: Int,
@@ -20,6 +20,7 @@ data class MovieDetailDto(
     @SerialName("original_language") val originalLanguage: String? = null,
     @SerialName("genres") val genres: List<GenreDto> = emptyList(),
     @SerialName("credits") val credits: CreditsDto = CreditsDto(),
+    @SerialName("videos") val videos: VideosDto = VideosDto(),
 )
 
 @Serializable
@@ -34,4 +35,17 @@ data class CastMemberDto(
     @SerialName("character") val character: String = "",
     @SerialName("profile_path") val profilePath: String? = null,
     @SerialName("order") val order: Int = 0,
+)
+
+@Serializable
+data class VideosDto(
+    @SerialName("results") val results: List<VideoDto> = emptyList(),
+)
+
+@Serializable
+data class VideoDto(
+    @SerialName("key") val key: String = "",
+    @SerialName("site") val site: String = "",
+    @SerialName("type") val type: String = "",
+    @SerialName("official") val official: Boolean = false,
 )

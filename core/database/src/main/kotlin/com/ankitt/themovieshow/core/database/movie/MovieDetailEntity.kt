@@ -25,4 +25,5 @@ data class MovieDetailEntity(
     val runtime: Int?,
     val tagline: String?,
     val originalLanguage: String?,
+    val trailerYoutubeKey: String?,
 )

@@ -39,7 +39,7 @@ import com.ankitt.themovieshow.core.database.sync.SyncStateEntity
         MovieGenreCrossRef::class,
         MovieCastEntity::class,
     ],
-    version = 3,
+    version = 4,
     exportSchema = true,
 )
 abstract class TheMovieShowDatabase : RoomDatabase() {

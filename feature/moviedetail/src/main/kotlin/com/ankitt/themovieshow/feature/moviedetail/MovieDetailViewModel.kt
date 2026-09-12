@@ -72,6 +72,7 @@ class MovieDetailViewModel @Inject constructor(
         language = originalLanguage?.let { code -> displayLanguageOrNull(code) ?: code },
         tagline = tagline?.takeIf { it.isNotBlank() },
         genres = genres.map { it.name },
+        trailerYoutubeKey = trailerYoutubeKey,
         cast = cast.map {
             CastMemberUi(
                 id = it.id,

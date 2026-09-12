@@ -95,3 +95,10 @@ val MIGRATION_2_3 = object : Migration(2, 3) {
         )
     }
 }
+
+/** Adds the YouTube trailer key to [movie_detail] for in-app trailer playback. */
+val MIGRATION_3_4 = object : Migration(3, 4) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL("ALTER TABLE `movie_detail` ADD COLUMN `trailerYoutubeKey` TEXT")
+    }
+}

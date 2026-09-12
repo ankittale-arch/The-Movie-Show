@@ -19,6 +19,7 @@ data class MovieDetailUi(
     val tagline: String?,
     val genres: List<String>,
     val cast: List<CastMemberUi>,
+    val trailerYoutubeKey: String?,
 )
 
 data class CastMemberUi(

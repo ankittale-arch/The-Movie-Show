@@ -1,6 +1,7 @@
 package com.ankitt.themovieshow.feature.moviedetail
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -28,6 +29,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Bookmark
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -39,6 +41,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -49,7 +54,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation3.ui.LocalNavAnimatedContentScope
 import coil3.compose.AsyncImage
@@ -57,6 +64,9 @@ import com.ankitt.themovieshow.core.designsystem.animation.sharedMovieElement
 import com.ankitt.themovieshow.core.designsystem.components.Chip
 import com.ankitt.themovieshow.core.designsystem.components.RatingBadge
 import com.ankitt.themovieshow.core.designsystem.theme.TheMovieShowTheme
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 
 @Composable
 fun MovieDetailScreen(
@@ -223,6 +233,17 @@ private fun MovieDetailBody(movie: MovieDetailUi, onBackClick: () -> Unit) {
             )
         }
 
+        val trailerYoutubeKey = movie.trailerYoutubeKey
+        if (trailerYoutubeKey != null) {
+            TrailerSection(
+                youtubeKey = trailerYoutubeKey,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 24.dp)
+                    .padding(top = 20.dp),
+            )
+        }
+
         Text(
             text = movie.overview,
             style = MaterialTheme.typography.bodyMedium,
@@ -303,6 +324,72 @@ private fun CastItem(member: CastMemberUi) {
             modifier = Modifier.padding(top = 6.dp),
         )
     }
+}
+
+/**
+ * A trailer thumbnail with a play button; tapping it swaps in a [YoutubeEmbeddedPlayer] in place,
+ * so the WebView (and the network request it makes) is only created once the user actually asks
+ * to watch it.
+ */
+@Composable
+private fun TrailerSection(youtubeKey: String, modifier: Modifier = Modifier) {
+    var isPlaying by rememberSaveable(youtubeKey) { mutableStateOf(false) }
+
+    Box(
+        modifier = modifier
+            .aspectRatio(16f / 9f)
+            .clip(RoundedCornerShape(12.dp))
+            .background(Color.Black),
+    ) {
+        if (isPlaying) {
+            YoutubeEmbeddedPlayer(youtubeKey = youtubeKey, modifier = Modifier.fillMaxSize())
+        } else {
+            AsyncImage(
+                model = "https://img.youtube.com/vi/$youtubeKey/hqdefault.jpg",
+                contentDescription = "Play trailer",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .clickable { isPlaying = true },
+            )
+            Icon(
+                imageVector = Icons.Filled.PlayArrow,
+                contentDescription = null,
+                tint = Color.White,
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .size(56.dp)
+                    .clip(CircleShape)
+                    .background(Color.Black.copy(alpha = 0.45f))
+                    .padding(8.dp),
+            )
+        }
+    }
+}
+
+/**
+ * Wraps the YouTube IFrame Player API via android-youtube-player rather than a hand-rolled
+ * WebView + `<iframe>`: it manages the JS bridge, lifecycle (pause on background, release on
+ * dispose) and play/pause state itself, so playback starts reliably on the first tap instead of
+ * needing a second tap on YouTube's own paused thumbnail.
+ */
+@Composable
+private fun YoutubeEmbeddedPlayer(youtubeKey: String, modifier: Modifier = Modifier) {
+    val lifecycleOwner = LocalLifecycleOwner.current
+    AndroidView(
+        modifier = modifier,
+        factory = { context ->
+            YouTubePlayerView(context).apply {
+                lifecycleOwner.lifecycle.addObserver(this)
+                addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+                    override fun onReady(youTubePlayer: YouTubePlayer) {
+                        youTubePlayer.loadVideo(youtubeKey, 0f)
+                    }
+                })
+            }
+        },
+        onRelease = { it.release() },
+    )
 }
 
 @Preview(showBackground = true)

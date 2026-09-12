@@ -51,6 +51,7 @@ dependencies {
 
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
+    implementation(libs.android.youtube.player)
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
