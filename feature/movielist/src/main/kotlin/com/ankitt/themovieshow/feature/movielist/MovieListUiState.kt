@@ -12,4 +12,5 @@ data class MovieListItem(
     val id: Int,
     val title: String,
     val posterUrl: String?,
+    val voteAverage: Double,
 )

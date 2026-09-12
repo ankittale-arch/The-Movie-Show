@@ -73,5 +73,6 @@ class HomeViewModel @Inject constructor(
         title = title,
         posterUrl = TmdbImageUrl.poster(posterPath),
         backdropUrl = TmdbImageUrl.backdrop(backdropPath),
+        voteAverage = voteAverage,
     )
 }

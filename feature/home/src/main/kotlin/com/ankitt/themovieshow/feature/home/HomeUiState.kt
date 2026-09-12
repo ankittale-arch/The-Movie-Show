@@ -14,6 +14,7 @@ data class HomeMovie(
     val title: String,
     val posterUrl: String?,
     val backdropUrl: String?,
+    val voteAverage: Double,
 )
 
 data class HomeGenre(

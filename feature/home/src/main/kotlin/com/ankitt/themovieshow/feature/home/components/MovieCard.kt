@@ -22,6 +22,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import com.ankitt.themovieshow.core.designsystem.components.RatingBadge
 import com.ankitt.themovieshow.core.designsystem.text.clipToWords
 
 /** The three ways a movie poster/backdrop and its title are laid out across Home's rows. */
@@ -42,6 +43,7 @@ fun MovieCard(
     imageUrl: String?,
     variant: MovieCardVariant,
     modifier: Modifier = Modifier,
+    rating: Double = 0.0,
     onClick: () -> Unit = {},
 ) {
     val cardWidth = if (variant == MovieCardVariant.LandscapeOverlay) 220.dp else 120.dp
@@ -61,6 +63,16 @@ fun MovieCard(
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxSize(),
             )
+            // Discover Movies (LandscapeOverlay) deliberately excluded — its title overlay
+            // already occupies the card, and it's the one row this badge should not appear on.
+            if (variant != MovieCardVariant.LandscapeOverlay && rating > 0.0) {
+                RatingBadge(
+                    rating = rating,
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .padding(6.dp),
+                )
+            }
             if (variant == MovieCardVariant.LandscapeOverlay) {
                 Box(
                     modifier = Modifier

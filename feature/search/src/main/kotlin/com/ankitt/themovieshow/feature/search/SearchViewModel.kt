@@ -85,5 +85,6 @@ class SearchViewModel @Inject constructor(
         id = id,
         title = title,
         posterUrl = TmdbImageUrl.poster(posterPath),
+        voteAverage = voteAverage,
     )
 }

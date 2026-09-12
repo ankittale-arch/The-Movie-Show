@@ -42,6 +42,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
+import com.ankitt.themovieshow.core.designsystem.components.RatingBadge
 import com.ankitt.themovieshow.core.designsystem.text.clipToWords
 import com.ankitt.themovieshow.core.designsystem.theme.TheMovieShowTheme
 
@@ -152,7 +153,10 @@ private fun MovieListGrid(uiState: MovieListUiState, onLoadMore: () -> Unit) {
 
     LazyVerticalStaggeredGrid(
         state = gridState,
-        columns = StaggeredGridCells.Fixed(2),
+        // Adaptive rather than a fixed column count: 2 columns on a typical phone width, but
+        // more columns appear automatically as the available width grows (tablets, landscape,
+        // foldables) instead of a couple of giant posters stretched across the screen.
+        columns = StaggeredGridCells.Adaptive(minSize = 140.dp),
         contentPadding = PaddingValues(16.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalItemSpacing = 12.dp,
@@ -178,15 +182,27 @@ private fun MovieListGrid(uiState: MovieListUiState, onLoadMore: () -> Unit) {
 @Composable
 private fun MovieListCard(movie: MovieListItem, modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
-        AsyncImage(
-            model = movie.posterUrl,
-            contentDescription = movie.title,
-            contentScale = ContentScale.Crop,
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .aspectRatio(2f / 3f)
                 .clip(RoundedCornerShape(10.dp)),
-        )
+        ) {
+            AsyncImage(
+                model = movie.posterUrl,
+                contentDescription = movie.title,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxSize(),
+            )
+            if (movie.voteAverage > 0.0) {
+                RatingBadge(
+                    rating = movie.voteAverage,
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .padding(6.dp),
+                )
+            }
+        }
         Text(
             text = movie.title.clipToWords(),
             style = MaterialTheme.typography.bodyMedium,

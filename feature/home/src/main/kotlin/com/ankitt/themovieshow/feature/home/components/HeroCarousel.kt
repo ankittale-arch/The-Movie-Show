@@ -26,6 +26,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import com.ankitt.themovieshow.core.designsystem.components.RatingBadge
 import com.ankitt.themovieshow.core.designsystem.text.clipToWords
 import com.ankitt.themovieshow.feature.home.HomeMovie
 
@@ -68,6 +69,14 @@ fun HeroCarousel(movies: List<HomeMovie>, modifier: Modifier = Modifier) {
                         .align(Alignment.BottomStart)
                         .padding(16.dp),
                 )
+                if (movie.voteAverage > 0.0) {
+                    RatingBadge(
+                        rating = movie.voteAverage,
+                        modifier = Modifier
+                            .align(Alignment.BottomEnd)
+                            .padding(16.dp),
+                    )
+                }
             }
         }
 

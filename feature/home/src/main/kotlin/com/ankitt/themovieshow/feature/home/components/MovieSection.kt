@@ -73,7 +73,12 @@ fun MovieSection(
                 } else {
                     movie.posterUrl
                 }
-                MovieCard(title = movie.title, imageUrl = imageUrl, variant = variant)
+                MovieCard(
+                    title = movie.title,
+                    imageUrl = imageUrl,
+                    variant = variant,
+                    rating = movie.voteAverage,
+                )
             }
         }
     }
