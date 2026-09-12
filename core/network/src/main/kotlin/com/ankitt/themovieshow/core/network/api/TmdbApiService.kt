@@ -2,8 +2,10 @@ package com.ankitt.themovieshow.core.network.api
 
 import com.ankitt.themovieshow.core.network.model.ConfigurationDto
 import com.ankitt.themovieshow.core.network.model.GenreListDto
+import com.ankitt.themovieshow.core.network.model.MovieDetailDto
 import com.ankitt.themovieshow.core.network.model.MoviePageDto
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
@@ -47,4 +49,10 @@ interface TmdbApiService {
         @Query("page") page: Int = 1,
         @Query("include_adult") includeAdult: Boolean = false,
     ): MoviePageDto
+
+    @GET("movie/{movie_id}")
+    suspend fun getMovieDetail(
+        @Path("movie_id") movieId: Int,
+        @Query("append_to_response") appendToResponse: String = "credits",
+    ): MovieDetailDto
 }

@@ -3,8 +3,12 @@ package com.ankitt.themovieshow.core.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.ankitt.themovieshow.core.database.movie.GenreEntity
+import com.ankitt.themovieshow.core.database.movie.MovieCastEntity
 import com.ankitt.themovieshow.core.database.movie.MovieDao
+import com.ankitt.themovieshow.core.database.movie.MovieDetailDao
+import com.ankitt.themovieshow.core.database.movie.MovieDetailEntity
 import com.ankitt.themovieshow.core.database.movie.MovieEntity
+import com.ankitt.themovieshow.core.database.movie.MovieGenreCrossRef
 import com.ankitt.themovieshow.core.database.movie.MovieListEntity
 import com.ankitt.themovieshow.core.database.sync.SyncStateDao
 import com.ankitt.themovieshow.core.database.sync.SyncStateEntity
@@ -31,11 +35,15 @@ import com.ankitt.themovieshow.core.database.sync.SyncStateEntity
         MovieEntity::class,
         GenreEntity::class,
         MovieListEntity::class,
+        MovieDetailEntity::class,
+        MovieGenreCrossRef::class,
+        MovieCastEntity::class,
     ],
-    version = 2,
+    version = 3,
     exportSchema = true,
 )
 abstract class TheMovieShowDatabase : RoomDatabase() {
     abstract fun syncStateDao(): SyncStateDao
     abstract fun movieDao(): MovieDao
+    abstract fun movieDetailDao(): MovieDetailDao
 }

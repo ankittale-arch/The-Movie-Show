@@ -50,6 +50,7 @@ dependencies {
     implementation(project(":feature:home"))
     implementation(project(":feature:search"))
     implementation(project(":feature:movielist"))
+    implementation(project(":feature:moviedetail"))
 
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)

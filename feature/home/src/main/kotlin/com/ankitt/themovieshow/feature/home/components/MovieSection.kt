@@ -30,6 +30,7 @@ fun MovieSection(
     modifier: Modifier = Modifier,
     leadingIcon: (@Composable () -> Unit)? = null,
     onMoreClick: () -> Unit = {},
+    onMovieClick: (Int) -> Unit = {},
 ) {
     Column(modifier = modifier) {
         Row(
@@ -74,10 +75,12 @@ fun MovieSection(
                     movie.posterUrl
                 }
                 MovieCard(
+                    movieId = movie.id,
                     title = movie.title,
                     imageUrl = imageUrl,
                     variant = variant,
                     rating = movie.voteAverage,
+                    onClick = { onMovieClick(movie.id) },
                 )
             }
         }

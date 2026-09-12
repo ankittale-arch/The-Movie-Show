@@ -50,6 +50,7 @@ import com.ankitt.themovieshow.feature.search.components.SearchResultRow
 @Composable
 fun SearchScreen(
     onBackClick: () -> Unit,
+    onMovieClick: (Int) -> Unit = {},
     viewModel: SearchViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -57,6 +58,7 @@ fun SearchScreen(
         uiState = uiState,
         onQueryChanged = viewModel::onQueryChanged,
         onBackClick = onBackClick,
+        onMovieClick = onMovieClick,
     )
 }
 
@@ -66,6 +68,7 @@ private fun SearchContent(
     uiState: SearchUiState,
     onQueryChanged: (String) -> Unit,
     onBackClick: () -> Unit,
+    onMovieClick: (Int) -> Unit = {},
 ) {
     val focusRequester = remember { FocusRequester() }
 
@@ -165,7 +168,7 @@ private fun SearchContent(
                         .fillMaxWidth(),
                 ) {
                     items(uiState.results, key = { it.id }) { movie ->
-                        SearchResultRow(movie = movie)
+                        SearchResultRow(movie = movie, onClick = { onMovieClick(movie.id) })
                     }
                 }
             }

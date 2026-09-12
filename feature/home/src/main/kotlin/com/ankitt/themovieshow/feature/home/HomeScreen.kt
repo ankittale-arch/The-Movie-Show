@@ -34,10 +34,16 @@ import com.ankitt.themovieshow.feature.home.components.MovieSection
 fun HomeScreen(
     onSearchClick: () -> Unit = {},
     onMovieListClick: (listKey: String, title: String) -> Unit = { _, _ -> },
+    onMovieClick: (Int) -> Unit = {},
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    HomeContent(uiState = uiState, onSearchClick = onSearchClick, onMovieListClick = onMovieListClick)
+    HomeContent(
+        uiState = uiState,
+        onSearchClick = onSearchClick,
+        onMovieListClick = onMovieListClick,
+        onMovieClick = onMovieClick,
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -46,6 +52,7 @@ private fun HomeContent(
     uiState: HomeUiState,
     onSearchClick: () -> Unit = {},
     onMovieListClick: (listKey: String, title: String) -> Unit = { _, _ -> },
+    onMovieClick: (Int) -> Unit = {},
 ) {
     Scaffold(
         contentWindowInsets = WindowInsets.safeDrawing,
@@ -61,6 +68,7 @@ private fun HomeContent(
                 HeroCarousel(
                     movies = uiState.heroMovies,
                     modifier = Modifier.padding(horizontal = 16.dp),
+                    onMovieClick = onMovieClick,
                 )
             }
             item {
@@ -86,6 +94,7 @@ private fun HomeContent(
                     movies = uiState.nowPlaying,
                     variant = MovieCardVariant.PosterOnly,
                     onMoreClick = { onMovieListClick(HomeListKeys.NOW_PLAYING, "Now Playing") },
+                    onMovieClick = onMovieClick,
                 )
             }
             item {
@@ -101,6 +110,7 @@ private fun HomeContent(
                         )
                     },
                     onMoreClick = { onMovieListClick(HomeListKeys.POPULAR, "Popular Movies") },
+                    onMovieClick = onMovieClick,
                 )
             }
             item {
@@ -109,6 +119,7 @@ private fun HomeContent(
                     movies = uiState.discover,
                     variant = MovieCardVariant.LandscapeOverlay,
                     onMoreClick = { onMovieListClick(HomeListKeys.DISCOVER, "Discover Movies") },
+                    onMovieClick = onMovieClick,
                 )
             }
             item {
@@ -117,6 +128,7 @@ private fun HomeContent(
                     movies = uiState.upcoming,
                     variant = MovieCardVariant.PosterWithCaption,
                     onMoreClick = { onMovieListClick(HomeListKeys.UPCOMING, "Upcoming Movies") },
+                    onMovieClick = onMovieClick,
                 )
             }
         }

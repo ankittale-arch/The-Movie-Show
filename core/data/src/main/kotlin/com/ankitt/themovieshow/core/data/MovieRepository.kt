@@ -2,6 +2,7 @@ package com.ankitt.themovieshow.core.data
 
 import com.ankitt.themovieshow.core.data.model.Genre
 import com.ankitt.themovieshow.core.data.model.Movie
+import com.ankitt.themovieshow.core.data.model.MovieDetail
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -44,4 +45,10 @@ interface MovieRepository {
      * more") uses that to stop requesting once the list is exhausted.
      */
     suspend fun loadMoreMoviesForList(listKey: String, nextPage: Int): Result<Boolean>
+
+    /** Null if [movieId] has never been cached (not in any list and never viewed before). */
+    fun observeMovieDetail(movieId: Int): Flow<MovieDetail?>
+
+    /** Fetches a movie's full detail + cast from TMDB and writes it into Room. */
+    suspend fun refreshMovieDetail(movieId: Int): Result<Unit>
 }

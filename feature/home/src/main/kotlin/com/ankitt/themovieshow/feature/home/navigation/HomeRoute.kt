@@ -11,8 +11,13 @@ data object HomeRoute : NavKey
 fun EntryProviderScope<NavKey>.homeEntry(
     onSearchClick: () -> Unit,
     onMovieListClick: (listKey: String, title: String) -> Unit,
+    onMovieClick: (Int) -> Unit,
 ) {
     entry<HomeRoute> {
-        HomeScreen(onSearchClick = onSearchClick, onMovieListClick = onMovieListClick)
+        HomeScreen(
+            onSearchClick = onSearchClick,
+            onMovieListClick = onMovieListClick,
+            onMovieClick = onMovieClick,
+        )
     }
 }

@@ -1,11 +1,16 @@
 package com.ankitt.themovieshow.core.data
 
 import com.ankitt.themovieshow.core.common.di.IoDispatcher
+import com.ankitt.themovieshow.core.data.mapper.toDetailEntity
 import com.ankitt.themovieshow.core.data.mapper.toDomain
 import com.ankitt.themovieshow.core.data.mapper.toEntity
+import com.ankitt.themovieshow.core.data.mapper.toMovieEntity
 import com.ankitt.themovieshow.core.data.model.Genre
 import com.ankitt.themovieshow.core.data.model.Movie
+import com.ankitt.themovieshow.core.data.model.MovieDetail
 import com.ankitt.themovieshow.core.database.movie.MovieDao
+import com.ankitt.themovieshow.core.database.movie.MovieDetailDao
+import com.ankitt.themovieshow.core.database.movie.MovieGenreCrossRef
 import com.ankitt.themovieshow.core.database.movie.MovieListEntity
 import com.ankitt.themovieshow.core.database.sync.SyncStateDao
 import com.ankitt.themovieshow.core.database.sync.SyncStateEntity
@@ -17,6 +22,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
@@ -25,6 +31,7 @@ import javax.inject.Inject
 class MovieRepositoryImpl @Inject constructor(
     private val tmdbApiService: TmdbApiService,
     private val movieDao: MovieDao,
+    private val movieDetailDao: MovieDetailDao,
     private val syncStateDao: SyncStateDao,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) : MovieRepository {
@@ -123,6 +130,46 @@ class MovieRepositoryImpl @Inject constructor(
             ),
         )
         return result
+    }
+
+    override fun observeMovieDetail(movieId: Int): Flow<MovieDetail?> = combine(
+        movieDetailDao.observeMovie(movieId),
+        movieDetailDao.observeMovieDetail(movieId),
+        movieDetailDao.observeGenresForMovie(movieId),
+        movieDetailDao.observeCastForMovie(movieId),
+    ) { movie, detail, genres, cast ->
+        if (movie == null) {
+            null
+        } else {
+            MovieDetail(
+                id = movie.movieId,
+                title = movie.title,
+                overview = movie.overview,
+                posterPath = movie.posterPath,
+                backdropPath = movie.backdropPath,
+                releaseDate = movie.releaseDate,
+                runtime = detail?.runtime,
+                voteAverage = movie.voteAverage,
+                voteCount = movie.voteCount,
+                tagline = detail?.tagline,
+                originalLanguage = detail?.originalLanguage,
+                genres = genres.map { it.toDomain() },
+                cast = cast.map { it.toDomain() },
+            )
+        }
+    }.flowOn(ioDispatcher)
+
+    override suspend fun refreshMovieDetail(movieId: Int): Result<Unit> = withContext(ioDispatcher) {
+        runCatching {
+            val dto = tmdbApiService.getMovieDetail(movieId)
+            movieDetailDao.replaceMovieDetail(
+                movie = dto.toMovieEntity(),
+                detail = dto.toDetailEntity(),
+                genres = dto.genres.map { it.toEntity() },
+                genreCrossRefs = dto.genres.map { MovieGenreCrossRef(movieId = dto.id, genreId = it.id) },
+                cast = dto.credits.cast.map { it.toEntity(movieId = dto.id) },
+            )
+        }
     }
 
     private suspend fun refreshGenres(): Result<Unit> {

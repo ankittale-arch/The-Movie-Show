@@ -21,7 +21,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.navigation3.ui.LocalNavAnimatedContentScope
 import coil3.compose.AsyncImage
+import com.ankitt.themovieshow.core.designsystem.animation.sharedMovieElement
 import com.ankitt.themovieshow.core.designsystem.components.RatingBadge
 import com.ankitt.themovieshow.core.designsystem.text.clipToWords
 
@@ -39,6 +41,7 @@ enum class MovieCardVariant {
 
 @Composable
 fun MovieCard(
+    movieId: Int,
     title: String,
     imageUrl: String?,
     variant: MovieCardVariant,
@@ -61,7 +64,22 @@ fun MovieCard(
                 model = imageUrl,
                 contentDescription = title,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .let {
+                        // Only the poster variants share the detail screen's poster image —
+                        // Discover's LandscapeOverlay shows a backdrop, a different image, so it
+                        // keeps the plain default screen transition instead of morphing into a
+                        // mismatched shape.
+                        if (variant == MovieCardVariant.LandscapeOverlay) {
+                            it
+                        } else {
+                            it.sharedMovieElement(
+                                key = "movie-poster-$movieId",
+                                animatedVisibilityScope = LocalNavAnimatedContentScope.current,
+                            )
+                        }
+                    },
             )
             // Discover Movies (LandscapeOverlay) deliberately excluded — its title overlay
             // already occupies the card, and it's the one row this badge should not appear on.

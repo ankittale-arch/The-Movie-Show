@@ -1,5 +1,6 @@
 package com.ankitt.themovieshow.feature.movielist
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -41,7 +42,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation3.ui.LocalNavAnimatedContentScope
 import coil3.compose.AsyncImage
+import com.ankitt.themovieshow.core.designsystem.animation.sharedMovieElement
 import com.ankitt.themovieshow.core.designsystem.components.RatingBadge
 import com.ankitt.themovieshow.core.designsystem.text.clipToWords
 import com.ankitt.themovieshow.core.designsystem.theme.TheMovieShowTheme
@@ -60,6 +63,7 @@ fun MovieListScreen(
     listKey: String,
     title: String,
     onBackClick: () -> Unit,
+    onMovieClick: (Int) -> Unit = {},
     viewModel: MovieListViewModel = hiltViewModel(),
 ) {
     LaunchedEffect(listKey) {
@@ -71,6 +75,7 @@ fun MovieListScreen(
         uiState = uiState,
         onBackClick = onBackClick,
         onLoadMore = viewModel::loadMore,
+        onMovieClick = onMovieClick,
     )
 }
 
@@ -81,6 +86,7 @@ private fun MovieListContent(
     uiState: MovieListUiState,
     onBackClick: () -> Unit,
     onLoadMore: () -> Unit,
+    onMovieClick: (Int) -> Unit = {},
 ) {
     Scaffold(
         contentWindowInsets = WindowInsets.safeDrawing,
@@ -123,14 +129,18 @@ private fun MovieListContent(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
 
-                else -> MovieListGrid(uiState = uiState, onLoadMore = onLoadMore)
+                else -> MovieListGrid(uiState = uiState, onLoadMore = onLoadMore, onMovieClick = onMovieClick)
             }
         }
     }
 }
 
 @Composable
-private fun MovieListGrid(uiState: MovieListUiState, onLoadMore: () -> Unit) {
+private fun MovieListGrid(
+    uiState: MovieListUiState,
+    onLoadMore: () -> Unit,
+    onMovieClick: (Int) -> Unit = {},
+) {
     val gridState = rememberLazyStaggeredGridState()
 
     // Deliberately reads gridState.layoutInfo (live Compose-tracked state) rather than
@@ -163,7 +173,7 @@ private fun MovieListGrid(uiState: MovieListUiState, onLoadMore: () -> Unit) {
         modifier = Modifier.fillMaxSize(),
     ) {
         items(uiState.movies, key = { it.id }) { movie ->
-            MovieListCard(movie = movie)
+            MovieListCard(movie = movie, onClick = { onMovieClick(movie.id) })
         }
         if (uiState.isLoadingMore) {
             item(span = StaggeredGridItemSpan.FullLine) {
@@ -180,19 +190,25 @@ private fun MovieListGrid(uiState: MovieListUiState, onLoadMore: () -> Unit) {
 }
 
 @Composable
-private fun MovieListCard(movie: MovieListItem, modifier: Modifier = Modifier) {
+private fun MovieListCard(movie: MovieListItem, modifier: Modifier = Modifier, onClick: () -> Unit = {}) {
     Column(modifier = modifier) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .aspectRatio(2f / 3f)
-                .clip(RoundedCornerShape(10.dp)),
+                .clip(RoundedCornerShape(10.dp))
+                .clickable(onClick = onClick),
         ) {
             AsyncImage(
                 model = movie.posterUrl,
                 contentDescription = movie.title,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .sharedMovieElement(
+                        key = "movie-poster-${movie.id}",
+                        animatedVisibilityScope = LocalNavAnimatedContentScope.current,
+                    ),
             )
             if (movie.voteAverage > 0.0) {
                 RatingBadge(

@@ -15,4 +15,7 @@ object TmdbImageUrl {
 
     fun backdrop(path: String?, size: String = "w1280"): String? =
         path?.let { "${BuildConfig.TMDB_IMAGE_BASE_URL}$size$it" }
+
+    fun profile(path: String?, size: String = "w185"): String? =
+        path?.let { "${BuildConfig.TMDB_IMAGE_BASE_URL}$size$it" }
 }

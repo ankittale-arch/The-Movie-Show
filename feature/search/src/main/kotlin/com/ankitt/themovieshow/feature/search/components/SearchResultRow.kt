@@ -18,7 +18,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.navigation3.ui.LocalNavAnimatedContentScope
 import coil3.compose.AsyncImage
+import com.ankitt.themovieshow.core.designsystem.animation.sharedMovieElement
 import com.ankitt.themovieshow.core.designsystem.components.RatingBadge
 import com.ankitt.themovieshow.core.designsystem.text.clipToWords
 import com.ankitt.themovieshow.feature.search.SearchResultMovie
@@ -45,7 +47,12 @@ fun SearchResultRow(
                 model = movie.posterUrl,
                 contentDescription = movie.title,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .sharedMovieElement(
+                        key = "movie-poster-${movie.id}",
+                        animatedVisibilityScope = LocalNavAnimatedContentScope.current,
+                    ),
             )
             if (movie.voteAverage > 0.0) {
                 RatingBadge(

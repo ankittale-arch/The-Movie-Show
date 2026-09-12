@@ -4,7 +4,9 @@ import android.content.Context
 import androidx.room.Room
 import com.ankitt.themovieshow.core.database.TheMovieShowDatabase
 import com.ankitt.themovieshow.core.database.migration.MIGRATION_1_2
+import com.ankitt.themovieshow.core.database.migration.MIGRATION_2_3
 import com.ankitt.themovieshow.core.database.movie.MovieDao
+import com.ankitt.themovieshow.core.database.movie.MovieDetailDao
 import com.ankitt.themovieshow.core.database.sync.SyncStateDao
 import dagger.Module
 import dagger.Provides
@@ -32,7 +34,7 @@ object DatabaseModule {
         // watchlist and personal ratings, none of which TMDB can hand back to us. A destructive
         // fallback would silently delete user data on every schema change we forget to migrate
         // correctly, instead of failing loudly in development.
-        .addMigrations(MIGRATION_1_2)
+        .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
         .build()
 
     @Provides
@@ -42,4 +44,8 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun providesSyncStateDao(database: TheMovieShowDatabase): SyncStateDao = database.syncStateDao()
+
+    @Provides
+    @Singleton
+    fun providesMovieDetailDao(database: TheMovieShowDatabase): MovieDetailDao = database.movieDetailDao()
 }

@@ -8,6 +8,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 data object SearchRoute : NavKey
 
-fun EntryProviderScope<NavKey>.searchEntry(onBackClick: () -> Unit) {
-    entry<SearchRoute> { SearchScreen(onBackClick = onBackClick) }
+fun EntryProviderScope<NavKey>.searchEntry(onBackClick: () -> Unit, onMovieClick: (Int) -> Unit) {
+    entry<SearchRoute> { SearchScreen(onBackClick = onBackClick, onMovieClick = onMovieClick) }
 }

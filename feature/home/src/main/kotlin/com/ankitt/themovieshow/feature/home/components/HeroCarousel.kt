@@ -1,6 +1,7 @@
 package com.ankitt.themovieshow.feature.home.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,7 +32,11 @@ import com.ankitt.themovieshow.core.designsystem.text.clipToWords
 import com.ankitt.themovieshow.feature.home.HomeMovie
 
 @Composable
-fun HeroCarousel(movies: List<HomeMovie>, modifier: Modifier = Modifier) {
+fun HeroCarousel(
+    movies: List<HomeMovie>,
+    modifier: Modifier = Modifier,
+    onMovieClick: (Int) -> Unit = {},
+) {
     if (movies.isEmpty()) return
     val pagerState = rememberPagerState(pageCount = { movies.size })
 
@@ -42,7 +47,8 @@ fun HeroCarousel(movies: List<HomeMovie>, modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .aspectRatio(16f / 9f)
-                    .clip(RoundedCornerShape(12.dp)),
+                    .clip(RoundedCornerShape(12.dp))
+                    .clickable { onMovieClick(movie.id) },
             ) {
                 AsyncImage(
                     model = movie.backdropUrl,

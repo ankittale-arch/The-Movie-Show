@@ -50,3 +50,48 @@ val MIGRATION_1_2 = object : Migration(1, 2) {
         )
     }
 }
+
+/** Adds MovieDetailEntity/MovieGenreCrossRef/MovieCastEntity for the Movie Detail screen. */
+val MIGRATION_2_3 = object : Migration(2, 3) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL(
+            """CREATE TABLE IF NOT EXISTS `movie_detail` (
+                `movieId` INTEGER NOT NULL,
+                `runtime` INTEGER,
+                `tagline` TEXT,
+                `originalLanguage` TEXT,
+                PRIMARY KEY(`movieId`),
+                FOREIGN KEY(`movieId`) REFERENCES `movie`(`movieId`) ON UPDATE NO ACTION ON DELETE CASCADE
+            )""",
+        )
+
+        db.execSQL(
+            """CREATE TABLE IF NOT EXISTS `movie_genre_cross_ref` (
+                `movieId` INTEGER NOT NULL,
+                `genreId` INTEGER NOT NULL,
+                PRIMARY KEY(`movieId`, `genreId`),
+                FOREIGN KEY(`movieId`) REFERENCES `movie`(`movieId`) ON UPDATE NO ACTION ON DELETE CASCADE,
+                FOREIGN KEY(`genreId`) REFERENCES `genre`(`genreId`) ON UPDATE NO ACTION ON DELETE CASCADE
+            )""",
+        )
+        db.execSQL(
+            "CREATE INDEX IF NOT EXISTS `index_movie_genre_cross_ref_genreId` ON `movie_genre_cross_ref` (`genreId`)",
+        )
+
+        db.execSQL(
+            """CREATE TABLE IF NOT EXISTS `movie_cast` (
+                `movieId` INTEGER NOT NULL,
+                `castId` INTEGER NOT NULL,
+                `name` TEXT NOT NULL,
+                `character` TEXT NOT NULL,
+                `profilePath` TEXT,
+                `order` INTEGER NOT NULL,
+                PRIMARY KEY(`movieId`, `castId`),
+                FOREIGN KEY(`movieId`) REFERENCES `movie`(`movieId`) ON UPDATE NO ACTION ON DELETE CASCADE
+            )""",
+        )
+        db.execSQL(
+            "CREATE INDEX IF NOT EXISTS `index_movie_cast_movieId_order` ON `movie_cast` (`movieId`, `order`)",
+        )
+    }
+}

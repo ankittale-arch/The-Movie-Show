@@ -13,12 +13,13 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class MovieListRoute(val listKey: String, val title: String) : NavKey
 
-fun EntryProviderScope<NavKey>.movieListEntry(onBackClick: () -> Unit) {
+fun EntryProviderScope<NavKey>.movieListEntry(onBackClick: () -> Unit, onMovieClick: (Int) -> Unit) {
     entry<MovieListRoute> { route ->
         MovieListScreen(
             listKey = route.listKey,
             title = route.title,
             onBackClick = onBackClick,
+            onMovieClick = onMovieClick,
         )
     }
 }
