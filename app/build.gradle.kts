@@ -31,6 +31,12 @@ val hasReleaseSigningConfig = listOf(
     releaseKeyPassword,
 ).all { !it.isNullOrBlank() }
 
+// Release builds cut from a git tag (see .github/workflows/ci.yml) pass the tag's version name
+// and the run number as versionCode via -P so the built app's version matches the tag it was
+// built from. Locally these fall back to a fixed placeholder.
+val releaseVersionName = (project.findProperty("VERSION_NAME") as String?) ?: "1.0"
+val releaseVersionCode = (project.findProperty("VERSION_CODE") as String?)?.toIntOrNull() ?: 1
+
 android {
     namespace = "com.ankitt.themovieshow"
     compileSdk {
@@ -41,8 +47,8 @@ android {
         applicationId = "com.ankitt.themovieshow"
         minSdk = 24
         targetSdk = 37
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = releaseVersionCode
+        versionName = releaseVersionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -60,9 +66,16 @@ android {
 
     buildTypes {
         release {
+            // optimization.enable turns on R8 (shrinking, obfuscation, optimization); its
+            // keepRules.includeDefault (on by default) already contributes the equivalent of
+            // proguard-android-optimize.txt, so proguard-rules.pro below only needs to add
+            // project-specific keep rules on top of that and each library's bundled consumer
+            // rules.
             optimization {
-                enable = false
+                enable = true
             }
+            isShrinkResources = true
+            proguardFiles("proguard-rules.pro")
             if (hasReleaseSigningConfig) {
                 signingConfig = signingConfigs.getByName("release")
             }
