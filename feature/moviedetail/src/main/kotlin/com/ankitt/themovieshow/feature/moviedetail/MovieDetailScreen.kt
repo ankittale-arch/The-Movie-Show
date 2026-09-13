@@ -29,6 +29,9 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Bookmark
+import androidx.compose.material.icons.filled.BookmarkBorder
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
@@ -78,11 +81,21 @@ fun MovieDetailScreen(
         viewModel.load(movieId)
     }
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    MovieDetailContent(uiState = uiState, onBackClick = onBackClick)
+    MovieDetailContent(
+        uiState = uiState,
+        onBackClick = onBackClick,
+        onFavoriteClick = viewModel::toggleFavorite,
+        onWatchlistClick = viewModel::toggleWatchlist,
+    )
 }
 
 @Composable
-private fun MovieDetailContent(uiState: MovieDetailUiState, onBackClick: () -> Unit) {
+private fun MovieDetailContent(
+    uiState: MovieDetailUiState,
+    onBackClick: () -> Unit,
+    onFavoriteClick: () -> Unit = {},
+    onWatchlistClick: () -> Unit = {},
+) {
     Scaffold(contentWindowInsets = WindowInsets.safeDrawing) { innerPadding ->
         Box(
             modifier = Modifier
@@ -129,8 +142,19 @@ private fun MovieDetailContent(uiState: MovieDetailUiState, onBackClick: () -> U
                     Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
                 }
                 if (movie != null) {
-                    DetailIconButton(onClick = { }) {
-                        Icon(imageVector = Icons.Filled.Bookmark, contentDescription = "Bookmark")
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        DetailIconButton(onClick = onFavoriteClick) {
+                            Icon(
+                                imageVector = if (uiState.isFavorite) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
+                                contentDescription = "Favorite",
+                            )
+                        }
+                        DetailIconButton(onClick = onWatchlistClick) {
+                            Icon(
+                                imageVector = if (uiState.isInWatchlist) Icons.Filled.Bookmark else Icons.Filled.BookmarkBorder,
+                                contentDescription = "Watchlist",
+                            )
+                        }
                     }
                 }
             }

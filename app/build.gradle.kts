@@ -51,6 +51,8 @@ dependencies {
     implementation(project(":feature:search"))
     implementation(project(":feature:movielist"))
     implementation(project(":feature:moviedetail"))
+    implementation(project(":feature:bookmarks"))
+    implementation(project(":feature:recentlyviewed"))
 
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)

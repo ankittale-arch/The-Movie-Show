@@ -30,15 +30,27 @@ class MovieDetailViewModel @Inject constructor(
         if (id == null) flowOf(null) else movieRepository.observeMovieDetail(id)
     }
 
+    private val isFavorite = movieId.flatMapLatest { id ->
+        if (id == null) flowOf(false) else movieRepository.isFavorite(id)
+    }
+
+    private val isInWatchlist = movieId.flatMapLatest { id ->
+        if (id == null) flowOf(false) else movieRepository.isInWatchlist(id)
+    }
+
     val uiState: StateFlow<MovieDetailUiState> = combine(
         detail,
         isLoading,
         errorMessage,
-    ) { detail, loading, error ->
+        isFavorite,
+        isInWatchlist,
+    ) { detail, loading, error, favorite, inWatchlist ->
         MovieDetailUiState(
             movie = detail?.toUi(),
             isLoading = loading,
             errorMessage = error,
+            isFavorite = favorite,
+            isInWatchlist = inWatchlist,
         )
     }.stateIn(
         scope = viewModelScope,
@@ -58,6 +70,17 @@ class MovieDetailViewModel @Inject constructor(
             isLoading.value = false
             result.onFailure { errorMessage.value = it.message ?: "Couldn't load movie" }
         }
+        viewModelScope.launch { movieRepository.recordMovieViewed(movieId) }
+    }
+
+    fun toggleFavorite() {
+        val id = movieId.value ?: return
+        viewModelScope.launch { movieRepository.toggleFavorite(id) }
+    }
+
+    fun toggleWatchlist() {
+        val id = movieId.value ?: return
+        viewModelScope.launch { movieRepository.toggleWatchlist(id) }
     }
 
     private fun MovieDetail.toUi() = MovieDetailUi(

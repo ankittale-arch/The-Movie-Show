@@ -1,5 +1,6 @@
 package com.ankitt.themovieshow.core.data
 
+import androidx.room.withTransaction
 import com.ankitt.themovieshow.core.common.di.IoDispatcher
 import com.ankitt.themovieshow.core.data.mapper.toDetailEntity
 import com.ankitt.themovieshow.core.data.mapper.toDomain
@@ -8,10 +9,20 @@ import com.ankitt.themovieshow.core.data.mapper.toMovieEntity
 import com.ankitt.themovieshow.core.data.model.Genre
 import com.ankitt.themovieshow.core.data.model.Movie
 import com.ankitt.themovieshow.core.data.model.MovieDetail
+import com.ankitt.themovieshow.core.data.model.PendingOperation
+import com.ankitt.themovieshow.core.data.model.PendingOperationType
+import com.ankitt.themovieshow.core.database.TheMovieShowDatabase
+import com.ankitt.themovieshow.core.database.bookmark.BookmarkDao
+import com.ankitt.themovieshow.core.database.bookmark.FavoriteMovieEntity
+import com.ankitt.themovieshow.core.database.bookmark.WatchlistMovieEntity
 import com.ankitt.themovieshow.core.database.movie.MovieDao
 import com.ankitt.themovieshow.core.database.movie.MovieDetailDao
 import com.ankitt.themovieshow.core.database.movie.MovieGenreCrossRef
 import com.ankitt.themovieshow.core.database.movie.MovieListEntity
+import com.ankitt.themovieshow.core.database.outbox.PendingOperationDao
+import com.ankitt.themovieshow.core.database.outbox.PendingOperationEntity
+import com.ankitt.themovieshow.core.database.recentlyviewed.RecentlyViewedDao
+import com.ankitt.themovieshow.core.database.recentlyviewed.RecentlyViewedEntity
 import com.ankitt.themovieshow.core.database.sync.SyncStateDao
 import com.ankitt.themovieshow.core.database.sync.SyncStateEntity
 import com.ankitt.themovieshow.core.network.api.TmdbApiService
@@ -28,11 +39,18 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+/** Cap on how many rows [RecentlyViewedDao] keeps — older entries are trimmed on every write. */
+private const val MAX_RECENTLY_VIEWED = 20
+
 class MovieRepositoryImpl @Inject constructor(
     private val tmdbApiService: TmdbApiService,
+    private val database: TheMovieShowDatabase,
     private val movieDao: MovieDao,
     private val movieDetailDao: MovieDetailDao,
     private val syncStateDao: SyncStateDao,
+    private val bookmarkDao: BookmarkDao,
+    private val recentlyViewedDao: RecentlyViewedDao,
+    private val pendingOperationDao: PendingOperationDao,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) : MovieRepository {
 
@@ -172,6 +190,99 @@ class MovieRepositoryImpl @Inject constructor(
             )
         }
     }
+
+    override fun observeFavoriteMovies(): Flow<List<Movie>> =
+        bookmarkDao.observeFavoriteMovies()
+            .map { entities -> entities.map { it.toDomain() } }
+            .flowOn(ioDispatcher)
+
+    override fun observeWatchlistMovies(): Flow<List<Movie>> =
+        bookmarkDao.observeWatchlistMovies()
+            .map { entities -> entities.map { it.toDomain() } }
+            .flowOn(ioDispatcher)
+
+    override fun isFavorite(movieId: Int): Flow<Boolean> =
+        bookmarkDao.observeIsFavorite(movieId).flowOn(ioDispatcher)
+
+    override fun isInWatchlist(movieId: Int): Flow<Boolean> =
+        bookmarkDao.observeIsInWatchlist(movieId).flowOn(ioDispatcher)
+
+    override suspend fun toggleFavorite(movieId: Int) = withContext(ioDispatcher) {
+        database.withTransaction {
+            val operationType = if (bookmarkDao.isFavoriteOnce(movieId)) {
+                bookmarkDao.deleteFavorite(movieId)
+                PendingOperationType.REMOVE_FAVORITE
+            } else {
+                bookmarkDao.upsertFavorite(FavoriteMovieEntity(movieId, System.currentTimeMillis()))
+                PendingOperationType.ADD_FAVORITE
+            }
+            enqueuePendingOperation(operationType, movieId)
+        }
+    }
+
+    override suspend fun toggleWatchlist(movieId: Int) = withContext(ioDispatcher) {
+        database.withTransaction {
+            val operationType = if (bookmarkDao.isInWatchlistOnce(movieId)) {
+                bookmarkDao.deleteWatchlist(movieId)
+                PendingOperationType.REMOVE_WATCHLIST
+            } else {
+                bookmarkDao.upsertWatchlist(WatchlistMovieEntity(movieId, System.currentTimeMillis()))
+                PendingOperationType.ADD_WATCHLIST
+            }
+            enqueuePendingOperation(operationType, movieId)
+        }
+    }
+
+    /** Enqueues the outbox row in the same transaction as the local mutation it describes. */
+    private suspend fun enqueuePendingOperation(operationType: String, movieId: Int) {
+        pendingOperationDao.enqueue(
+            PendingOperationEntity(
+                operationType = operationType,
+                payload = movieId.toString(),
+                createdAtEpochMillis = System.currentTimeMillis(),
+            ),
+        )
+    }
+
+    override fun observeRecentlyViewedMovies(): Flow<List<Movie>> =
+        recentlyViewedDao.observeRecentlyViewedMovies(MAX_RECENTLY_VIEWED)
+            .map { entities -> entities.map { it.toDomain() } }
+            .flowOn(ioDispatcher)
+
+    override suspend fun recordMovieViewed(movieId: Int) = withContext(ioDispatcher) {
+        recentlyViewedDao.upsertRecentlyViewed(RecentlyViewedEntity(movieId, System.currentTimeMillis()))
+        recentlyViewedDao.trimTo(MAX_RECENTLY_VIEWED)
+    }
+
+    override suspend fun clearRecentlyViewed() = withContext(ioDispatcher) {
+        recentlyViewedDao.clearRecentlyViewed()
+    }
+
+    override fun observePendingOperations(): Flow<List<PendingOperation>> =
+        pendingOperationDao.observePendingOperations()
+            .map { entities -> entities.map { it.toDomain() } }
+            .flowOn(ioDispatcher)
+
+    override suspend fun getPendingOperations(): List<PendingOperation> = withContext(ioDispatcher) {
+        pendingOperationDao.getAllPending().map { it.toDomain() }
+    }
+
+    override suspend fun markPendingOperationSynced(pendingOperationId: Long) = withContext(ioDispatcher) {
+        pendingOperationDao.delete(pendingOperationId)
+    }
+
+    override suspend fun markPendingOperationFailed(pendingOperationId: Long, errorMessage: String?) =
+        withContext(ioDispatcher) {
+            pendingOperationDao.recordFailedAttempt(pendingOperationId, System.currentTimeMillis(), errorMessage)
+        }
+
+    private fun PendingOperationEntity.toDomain() = PendingOperation(
+        id = id,
+        operationType = operationType,
+        payload = payload,
+        createdAtEpochMillis = createdAtEpochMillis,
+        retryCount = retryCount,
+    )
 
     private suspend fun refreshGenres(): Result<Unit> {
         val result = runCatching {

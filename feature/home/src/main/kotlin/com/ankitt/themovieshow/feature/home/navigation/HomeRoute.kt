@@ -10,12 +10,16 @@ data object HomeRoute : NavKey
 
 fun EntryProviderScope<NavKey>.homeEntry(
     onSearchClick: () -> Unit,
+    onBookmarksClick: () -> Unit,
+    onRecentlyViewedClick: () -> Unit,
     onMovieListClick: (listKey: String, title: String) -> Unit,
     onMovieClick: (Int) -> Unit,
 ) {
     entry<HomeRoute> {
         HomeScreen(
             onSearchClick = onSearchClick,
+            onBookmarksClick = onBookmarksClick,
+            onRecentlyViewedClick = onRecentlyViewedClick,
             onMovieListClick = onMovieListClick,
             onMovieClick = onMovieClick,
         )

@@ -102,3 +102,57 @@ val MIGRATION_3_4 = object : Migration(3, 4) {
         db.execSQL("ALTER TABLE `movie_detail` ADD COLUMN `trailerYoutubeKey` TEXT")
     }
 }
+
+/** Adds the favorite_movie/watchlist_movie tables backing the Bookmarks feature. */
+val MIGRATION_4_5 = object : Migration(4, 5) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL(
+            """CREATE TABLE IF NOT EXISTS `favorite_movie` (
+                `movieId` INTEGER NOT NULL,
+                `addedAtEpochMillis` INTEGER NOT NULL,
+                PRIMARY KEY(`movieId`),
+                FOREIGN KEY(`movieId`) REFERENCES `movie`(`movieId`) ON UPDATE NO ACTION ON DELETE CASCADE
+            )""",
+        )
+
+        db.execSQL(
+            """CREATE TABLE IF NOT EXISTS `watchlist_movie` (
+                `movieId` INTEGER NOT NULL,
+                `addedAtEpochMillis` INTEGER NOT NULL,
+                PRIMARY KEY(`movieId`),
+                FOREIGN KEY(`movieId`) REFERENCES `movie`(`movieId`) ON UPDATE NO ACTION ON DELETE CASCADE
+            )""",
+        )
+    }
+}
+
+/** Adds the recently_viewed table backing the Recently Viewed feature. */
+val MIGRATION_5_6 = object : Migration(5, 6) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL(
+            """CREATE TABLE IF NOT EXISTS `recently_viewed` (
+                `movieId` INTEGER NOT NULL,
+                `viewedAtEpochMillis` INTEGER NOT NULL,
+                PRIMARY KEY(`movieId`),
+                FOREIGN KEY(`movieId`) REFERENCES `movie`(`movieId`) ON UPDATE NO ACTION ON DELETE CASCADE
+            )""",
+        )
+    }
+}
+
+/** Adds the pending_operation outbox table queuing offline mutations for Phase 6's sync worker. */
+val MIGRATION_6_7 = object : Migration(6, 7) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL(
+            """CREATE TABLE IF NOT EXISTS `pending_operation` (
+                `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                `operationType` TEXT NOT NULL,
+                `payload` TEXT NOT NULL,
+                `createdAtEpochMillis` INTEGER NOT NULL,
+                `retryCount` INTEGER NOT NULL,
+                `lastAttemptEpochMillis` INTEGER,
+                `lastErrorMessage` TEXT
+            )""",
+        )
+    }
+}

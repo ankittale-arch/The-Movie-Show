@@ -10,12 +10,16 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import com.ankitt.themovieshow.core.designsystem.animation.LocalSharedTransitionScope
+import com.ankitt.themovieshow.feature.bookmarks.navigation.BookmarksRoute
+import com.ankitt.themovieshow.feature.bookmarks.navigation.bookmarksEntry
 import com.ankitt.themovieshow.feature.home.navigation.HomeRoute
 import com.ankitt.themovieshow.feature.home.navigation.homeEntry
 import com.ankitt.themovieshow.feature.moviedetail.navigation.MovieDetailRoute
 import com.ankitt.themovieshow.feature.moviedetail.navigation.movieDetailEntry
 import com.ankitt.themovieshow.feature.movielist.navigation.MovieListRoute
 import com.ankitt.themovieshow.feature.movielist.navigation.movieListEntry
+import com.ankitt.themovieshow.feature.recentlyviewed.navigation.RecentlyViewedRoute
+import com.ankitt.themovieshow.feature.recentlyviewed.navigation.recentlyViewedEntry
 import com.ankitt.themovieshow.feature.search.navigation.SearchRoute
 import com.ankitt.themovieshow.feature.search.navigation.searchEntry
 
@@ -38,12 +42,16 @@ fun AppNavHost() {
                 entryProvider = entryProvider {
                     homeEntry(
                         onSearchClick = { backStack.add(SearchRoute) },
+                        onBookmarksClick = { backStack.add(BookmarksRoute) },
+                        onRecentlyViewedClick = { backStack.add(RecentlyViewedRoute) },
                         onMovieListClick = { listKey, title -> backStack.add(MovieListRoute(listKey, title)) },
                         onMovieClick = onMovieClick,
                     )
                     searchEntry(onBackClick = { backStack.removeLastOrNull() }, onMovieClick = onMovieClick)
                     movieListEntry(onBackClick = { backStack.removeLastOrNull() }, onMovieClick = onMovieClick)
                     movieDetailEntry(onBackClick = { backStack.removeLastOrNull() })
+                    bookmarksEntry(onBackClick = { backStack.removeLastOrNull() }, onMovieClick = onMovieClick)
+                    recentlyViewedEntry(onBackClick = { backStack.removeLastOrNull() }, onMovieClick = onMovieClick)
                 },
             )
         }

@@ -3,6 +3,7 @@ package com.ankitt.themovieshow.core.data
 import com.ankitt.themovieshow.core.data.model.Genre
 import com.ankitt.themovieshow.core.data.model.Movie
 import com.ankitt.themovieshow.core.data.model.MovieDetail
+import com.ankitt.themovieshow.core.data.model.PendingOperation
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -51,4 +52,42 @@ interface MovieRepository {
 
     /** Fetches a movie's full detail + cast from TMDB and writes it into Room. */
     suspend fun refreshMovieDetail(movieId: Int): Result<Unit>
+
+    fun observeFavoriteMovies(): Flow<List<Movie>>
+
+    fun observeWatchlistMovies(): Flow<List<Movie>>
+
+    fun isFavorite(movieId: Int): Flow<Boolean>
+
+    fun isInWatchlist(movieId: Int): Flow<Boolean>
+
+    /** Adds [movieId] to favorites if it isn't already there, otherwise removes it. */
+    suspend fun toggleFavorite(movieId: Int)
+
+    /** Adds [movieId] to the watchlist if it isn't already there, otherwise removes it. */
+    suspend fun toggleWatchlist(movieId: Int)
+
+    /** Most recently viewed movies first, capped to a fixed count. */
+    fun observeRecentlyViewedMovies(): Flow<List<Movie>>
+
+    /** Marks [movieId] as viewed just now, moving it to the front of the recently-viewed list. */
+    suspend fun recordMovieViewed(movieId: Int)
+
+    suspend fun clearRecentlyViewed()
+
+    /**
+     * Every offline mutation still waiting to reach the server, oldest first — the outbox that
+     * makes writes durable across process death. Read by Phase 6's WorkManager sync worker; empty
+     * once everything has synced.
+     */
+    fun observePendingOperations(): Flow<List<PendingOperation>>
+
+    /** One-shot read for the sync worker to grab a batch of work without staying subscribed. */
+    suspend fun getPendingOperations(): List<PendingOperation>
+
+    /** Removes [pendingOperationId] from the outbox after it has synced successfully. */
+    suspend fun markPendingOperationSynced(pendingOperationId: Long)
+
+    /** Records a failed sync attempt so the worker can back off and retry [pendingOperationId] later. */
+    suspend fun markPendingOperationFailed(pendingOperationId: Long, errorMessage: String?)
 }

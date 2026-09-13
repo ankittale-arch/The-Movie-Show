@@ -33,6 +33,8 @@ import com.ankitt.themovieshow.feature.home.components.MovieSection
 @Composable
 fun HomeScreen(
     onSearchClick: () -> Unit = {},
+    onBookmarksClick: () -> Unit = {},
+    onRecentlyViewedClick: () -> Unit = {},
     onMovieListClick: (listKey: String, title: String) -> Unit = { _, _ -> },
     onMovieClick: (Int) -> Unit = {},
     viewModel: HomeViewModel = hiltViewModel(),
@@ -41,6 +43,8 @@ fun HomeScreen(
     HomeContent(
         uiState = uiState,
         onSearchClick = onSearchClick,
+        onBookmarksClick = onBookmarksClick,
+        onRecentlyViewedClick = onRecentlyViewedClick,
         onMovieListClick = onMovieListClick,
         onMovieClick = onMovieClick,
     )
@@ -51,12 +55,20 @@ fun HomeScreen(
 private fun HomeContent(
     uiState: HomeUiState,
     onSearchClick: () -> Unit = {},
+    onBookmarksClick: () -> Unit = {},
+    onRecentlyViewedClick: () -> Unit = {},
     onMovieListClick: (listKey: String, title: String) -> Unit = { _, _ -> },
     onMovieClick: (Int) -> Unit = {},
 ) {
     Scaffold(
         contentWindowInsets = WindowInsets.safeDrawing,
-        topBar = { HomeTopAppBar(onSearchClick = onSearchClick) },
+        topBar = {
+            HomeTopAppBar(
+                onSearchClick = onSearchClick,
+                onBookmarksClick = onBookmarksClick,
+                onRecentlyViewedClick = onRecentlyViewedClick,
+            )
+        },
     ) { innerPadding ->
         LazyColumn(
             modifier = Modifier
