@@ -12,6 +12,25 @@
         android:roundIcon="@mipmap/ic_app_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TheMovieShow">
+
+        <!--
+        TheMovieShowApplication implements androidx.work.Configuration.Provider for on-demand
+        WorkManager initialization (see its doc comment), which requires removing WorkManager's
+        default eager initializer. tools:node="remove" targets only that meta-data entry, so it
+        merges alongside (rather than replacing) core:sync's own androidx.startup provider entry
+        for SyncInitializer.
+        -->
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data
+                android:name="androidx.work.WorkManagerInitializer"
+                android:value="androidx.startup"
+                tools:node="remove" />
+        </provider>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

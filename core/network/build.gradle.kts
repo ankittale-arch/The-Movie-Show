@@ -10,14 +10,17 @@ plugins {
 // TMDB requires a v4 read-access token (a long-lived JWT, not the legacy v3 API key) for Bearer
 // auth. It is read from local.properties (gitignored, developer-machine only) rather than
 // hardcoded, and injected as a BuildConfig field so it never sits in source control or in a
-// string resource that would ship readable in the APK's resources.arsc.
+// string resource that would ship readable in the APK's resources.arsc. CI has no
+// local.properties, so it falls back to the TMDB_READ_ACCESS_TOKEN environment variable there.
 val localProperties = Properties().apply {
     val localPropertiesFile = rootProject.file("local.properties")
     if (localPropertiesFile.exists()) {
         localPropertiesFile.inputStream().use { load(it) }
     }
 }
-val tmdbReadAccessToken: String = localProperties.getProperty("TMDB_READ_ACCESS_TOKEN") ?: ""
+val tmdbReadAccessToken: String = localProperties.getProperty("TMDB_READ_ACCESS_TOKEN")
+    ?: System.getenv("TMDB_READ_ACCESS_TOKEN")
+    ?: ""
 
 android {
     namespace = "com.ankitt.themovieshow.core.network"

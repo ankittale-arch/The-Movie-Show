@@ -4,10 +4,10 @@
     <!--
     Registers SyncInitializer with androidx.startup so the periodic outbox sync is scheduled at
     process start without adding scheduling logic to TheMovieShowApplication.onCreate (see its
-    doc comment). tools:node="merge" combines this <provider> with the one androidx.work itself
-    contributes for its own default WorkManagerInitializer, rather than one replacing the other -
-    WorkManager's own initializer is still what wires up Configuration.Provider, this only adds
-    our own startup step alongside it.
+    doc comment). tools:node="merge" combines this <provider> with the app module's own
+    androidx-startup provider entry (which removes WorkManager's default eager initializer,
+    since Configuration.Provider requires on-demand initialization instead) rather than one
+    replacing the other.
     -->
     <application>
         <provider
