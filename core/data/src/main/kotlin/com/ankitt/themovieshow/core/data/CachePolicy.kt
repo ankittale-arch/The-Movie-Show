@@ -1,6 +1,8 @@
 package com.ankitt.themovieshow.core.data
 
-import java.time.Duration
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.days
+import kotlin.time.Duration.Companion.hours
 
 /**
  * How long each [HomeListKeys] resource stays fresh before a screen open (or the background
@@ -23,19 +25,19 @@ import java.time.Duration
 object CachePolicy {
 
     private val THRESHOLDS = mapOf(
-        HomeListKeys.TRENDING to Duration.ofHours(3),
-        HomeListKeys.NOW_PLAYING to Duration.ofHours(6),
-        HomeListKeys.POPULAR to Duration.ofHours(12),
-        HomeListKeys.DISCOVER to Duration.ofHours(12),
-        HomeListKeys.UPCOMING to Duration.ofHours(24),
-        HomeListKeys.GENRES to Duration.ofDays(7),
+        HomeListKeys.TRENDING to 3.hours,
+        HomeListKeys.NOW_PLAYING to 6.hours,
+        HomeListKeys.POPULAR to 12.hours,
+        HomeListKeys.DISCOVER to 12.hours,
+        HomeListKeys.UPCOMING to 24.hours,
+        HomeListKeys.GENRES to 7.days,
     )
 
     /** Used for genre(id) rows and anything else not explicitly listed above. */
-    private val DEFAULT_THRESHOLD = Duration.ofHours(12)
+    private val DEFAULT_THRESHOLD = 12.hours
 
     /** Movie detail (title/overview/cast/runtime) is effectively immutable once released. */
-    private val MOVIE_DETAIL_THRESHOLD = Duration.ofHours(24)
+    private val MOVIE_DETAIL_THRESHOLD = 24.hours
 
     fun isListStale(
         listKey: String,
@@ -50,6 +52,6 @@ object CachePolicy {
 
     private fun isStale(lastSyncedAtEpochMillis: Long?, threshold: Duration, nowEpochMillis: Long): Boolean {
         if (lastSyncedAtEpochMillis == null) return true
-        return nowEpochMillis - lastSyncedAtEpochMillis >= threshold.toMillis()
+        return nowEpochMillis - lastSyncedAtEpochMillis >= threshold.inWholeMilliseconds
     }
 }
