@@ -6,7 +6,11 @@ import androidx.work.Configuration
 import coil3.ImageLoader
 import coil3.PlatformContext
 import coil3.SingletonImageLoader
+import dagger.hilt.EntryPoint
+import dagger.hilt.InstallIn
+import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.android.HiltAndroidApp
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Inject
 
 /**
@@ -18,6 +22,13 @@ import javax.inject.Inject
  * it's what lets `SyncWorker` (an `@HiltWorker`) receive its dependencies from Hilt instead of a
  * no-arg constructor.
  *
+ * [workManagerConfiguration] reads [HiltWorkerFactory] via [WorkerFactoryEntryPoint] rather than
+ * field injection: `SyncInitializer` (an androidx.startup `Initializer`, see core:sync) triggers
+ * WorkManager's on-demand init from inside `InitializationProvider.onCreate()`, which the OS runs
+ * *before* `Application.onCreate()` — i.e. before Hilt has injected this class's fields. Reading
+ * straight from the entry point instead works because the underlying Dagger component is already
+ * built in `attachBaseContext`.
+ *
  * Implements [SingletonImageLoader.Factory] to hand Coil the Hilt-provided [ImageLoader] (see
  * `di/ImageLoaderModule.kt`) instead of Coil building its own default one.
  */
@@ -27,11 +38,18 @@ class TheMovieShowApplication : Application(), SingletonImageLoader.Factory, Con
     @Inject
     lateinit var imageLoader: ImageLoader
 
-    @Inject
-    lateinit var workerFactory: HiltWorkerFactory
-
     override fun newImageLoader(context: PlatformContext): ImageLoader = imageLoader
 
     override val workManagerConfiguration: Configuration
-        get() = Configuration.Builder().setWorkerFactory(workerFactory).build()
+        get() {
+            val workerFactory = EntryPointAccessors.fromApplication(this, WorkerFactoryEntryPoint::class.java)
+                .workerFactory()
+            return Configuration.Builder().setWorkerFactory(workerFactory).build()
+        }
+}
+
+@EntryPoint
+@InstallIn(SingletonComponent::class)
+interface WorkerFactoryEntryPoint {
+    fun workerFactory(): HiltWorkerFactory
 }
