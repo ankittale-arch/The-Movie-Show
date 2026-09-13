@@ -130,7 +130,7 @@ private fun HomeContent(
                     }
                     item {
                         MovieSection(
-                            title = "Discover Movies ⭐",
+                            title = "Discover Movies",
                             movies = uiState.discover,
                             variant = MovieCardVariant.LandscapeOverlay,
                             onMoreClick = { onMovieListClick(HomeListKeys.DISCOVER, "Discover Movies") },

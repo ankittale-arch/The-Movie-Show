@@ -25,7 +25,7 @@ fun Chip(text: String, modifier: Modifier = Modifier, onClick: (() -> Unit)? = n
         Text(
             text = text,
             style = MaterialTheme.typography.labelLarge,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            color = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
         )
     }

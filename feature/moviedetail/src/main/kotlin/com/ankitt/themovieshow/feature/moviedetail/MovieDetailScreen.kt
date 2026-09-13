@@ -90,13 +90,21 @@ private fun MovieDetailContent(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
 
-                else -> MovieDetailBody(
-                    movie = movie,
-                    isOffline = uiState.isOffline,
-                    isStale = uiState.isStale,
-                    lastSyncedAtEpochMillis = uiState.lastSyncedAtEpochMillis,
-                    onBackClick = onBackClick,
-                )
+                else -> {
+                    var selectedCastId by rememberSaveable { mutableStateOf<Int?>(null) }
+                    MovieDetailBody(
+                        movie = movie,
+                        isOffline = uiState.isOffline,
+                        isStale = uiState.isStale,
+                        lastSyncedAtEpochMillis = uiState.lastSyncedAtEpochMillis,
+                        onBackClick = onBackClick,
+                        onCastMemberClick = { selectedCastId = it },
+                    )
+                    val castId = selectedCastId
+                    if (castId != null) {
+                        PersonBioSheet(personId = castId, onDismissRequest = { selectedCastId = null })
+                    }
+                }
             }
 
             // Floats over the backdrop regardless of which branch above is showing, so back
@@ -155,6 +163,7 @@ private fun MovieDetailBody(
     isStale: Boolean,
     lastSyncedAtEpochMillis: Long?,
     onBackClick: () -> Unit,
+    onCastMemberClick: (Int) -> Unit = {},
 ) {
     Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
         AsyncImage(
@@ -270,7 +279,9 @@ private fun MovieDetailBody(
                 contentPadding = PaddingValues(horizontal = 24.dp),
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
             ) {
-                items(movie.cast, key = { it.id }) { member -> CastItem(member) }
+                items(movie.cast, key = { it.id }) { member ->
+                    CastItem(member = member, onClick = { onCastMemberClick(member.id) })
+                }
             }
         }
 
@@ -309,9 +320,11 @@ private fun InfoColumn(label: String, content: @Composable () -> Unit) {
 }
 
 @Composable
-private fun CastItem(member: CastMemberUi) {
+private fun CastItem(member: CastMemberUi, onClick: () -> Unit) {
     Column(
-        modifier = Modifier.width(72.dp),
+        modifier = Modifier
+            .width(72.dp)
+            .clickable(onClick = onClick),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         AsyncImage(

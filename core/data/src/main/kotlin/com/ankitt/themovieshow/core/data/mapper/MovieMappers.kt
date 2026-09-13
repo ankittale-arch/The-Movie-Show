@@ -75,3 +75,25 @@ fun MovieCastEntity.toDomain(): CastMember = CastMember(
     character = character,
     profilePath = profilePath,
 )
+
+fun PersonDetailDto.toDomain(): PersonDetail = PersonDetail(
+    id = id,
+    name = name,
+    biography = biography,
+    birthday = birthday,
+    deathday = deathday,
+    placeOfBirth = placeOfBirth,
+    profilePath = profilePath,
+    knownForDepartment = knownForDepartment,
+    knownFor = movieCredits.cast
+        .sortedByDescending { it.popularity }
+        .take(10)
+        .map { it.toDomain() },
+)
+
+fun PersonKnownForMovieDto.toDomain(): KnownForMovie = KnownForMovie(
+    id = id,
+    title = title,
+    posterPath = posterPath,
+    releaseDate = releaseDate,
+)

@@ -70,6 +70,13 @@ interface MovieRepository {
     /** Freshness of one movie's cached detail — see [observeHomeSyncMetadata] for the Home equivalent. */
     fun observeMovieDetailSyncMetadata(movieId: Int): Flow<SyncMetadata>
 
+    /**
+     * Fetches a cast/crew member's bio from TMDB, e.g. when tapping a name in a movie's cast row.
+     * One-shot and uncached (unlike [refreshMovieDetail]) — a person's page is opened rarely
+     * enough per visit that Room persistence isn't worth the added storage/migration surface yet.
+     */
+    suspend fun getPersonDetail(personId: Int): Result<PersonDetail>
+
     fun observeFavoriteMovies(): Flow<List<Movie>>
 
     fun observeWatchlistMovies(): Flow<List<Movie>>

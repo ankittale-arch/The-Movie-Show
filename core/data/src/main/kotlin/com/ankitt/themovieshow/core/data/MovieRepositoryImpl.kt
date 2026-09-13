@@ -217,6 +217,11 @@ class MovieRepositoryImpl @Inject constructor(
     /** [SyncStateEntity] resource key for one movie's detail — one row per movie, not per list. */
     private fun movieDetailResource(movieId: Int) = "movie_detail:$movieId"
 
+    override suspend fun getPersonDetail(personId: Int): Result<PersonDetail> =
+        withContext(ioDispatcher) {
+            runCatching { tmdbApiService.getPersonDetail(personId).toDomain() }
+        }
+
     override fun observeMovieDetailSyncMetadata(movieId: Int): Flow<SyncMetadata> =
         syncStateDao.observe(movieDetailResource(movieId))
             .map { state ->

@@ -50,4 +50,10 @@ interface TmdbApiService {
         @Path("movie_id") movieId: Int,
         @Query("append_to_response") appendToResponse: String = "credits,videos",
     ): MovieDetailDto
+
+    @GET("person/{person_id}")
+    suspend fun getPersonDetail(
+        @Path("person_id") personId: Int,
+        @Query("append_to_response") appendToResponse: String = "movie_credits",
+    ): PersonDetailDto
 }
