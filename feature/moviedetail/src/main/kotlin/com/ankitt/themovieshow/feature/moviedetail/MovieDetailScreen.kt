@@ -66,6 +66,7 @@ import coil3.compose.AsyncImage
 import com.ankitt.themovieshow.core.designsystem.animation.sharedMovieElement
 import com.ankitt.themovieshow.core.designsystem.components.Chip
 import com.ankitt.themovieshow.core.designsystem.components.RatingBadge
+import com.ankitt.themovieshow.core.designsystem.components.SyncStatusBanner
 import com.ankitt.themovieshow.core.designsystem.theme.TheMovieShowTheme
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
@@ -126,7 +127,13 @@ private fun MovieDetailContent(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
 
-                else -> MovieDetailBody(movie = movie, onBackClick = onBackClick)
+                else -> MovieDetailBody(
+                    movie = movie,
+                    isOffline = uiState.isOffline,
+                    isStale = uiState.isStale,
+                    lastSyncedAtEpochMillis = uiState.lastSyncedAtEpochMillis,
+                    onBackClick = onBackClick,
+                )
             }
 
             // Floats over the backdrop regardless of which branch above is showing, so back
@@ -179,7 +186,13 @@ private fun DetailIconButton(onClick: () -> Unit, content: @Composable () -> Uni
 }
 
 @Composable
-private fun MovieDetailBody(movie: MovieDetailUi, onBackClick: () -> Unit) {
+private fun MovieDetailBody(
+    movie: MovieDetailUi,
+    isOffline: Boolean,
+    isStale: Boolean,
+    lastSyncedAtEpochMillis: Long?,
+    onBackClick: () -> Unit,
+) {
     Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
         AsyncImage(
             model = movie.backdropUrl,
@@ -206,6 +219,13 @@ private fun MovieDetailBody(movie: MovieDetailUi, onBackClick: () -> Unit) {
                     ),
             )
         }
+
+        SyncStatusBanner(
+            isOffline = isOffline,
+            isStale = isStale,
+            lastSyncedAtEpochMillis = lastSyncedAtEpochMillis,
+            modifier = Modifier.fillMaxWidth(),
+        )
 
         Text(
             text = movie.title,

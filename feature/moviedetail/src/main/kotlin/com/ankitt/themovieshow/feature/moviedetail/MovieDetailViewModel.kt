@@ -2,9 +2,11 @@ package com.ankitt.themovieshow.feature.moviedetail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ankitt.themovieshow.core.common.network.ConnectivityObserver
 import com.ankitt.themovieshow.core.data.MovieRepository
 import com.ankitt.themovieshow.core.data.TmdbImageUrl
 import com.ankitt.themovieshow.core.data.model.MovieDetail
+import com.ankitt.themovieshow.core.data.model.SyncMetadata
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -20,6 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MovieDetailViewModel @Inject constructor(
     private val movieRepository: MovieRepository,
+    connectivityObserver: ConnectivityObserver,
 ) : ViewModel() {
 
     private val movieId = MutableStateFlow<Int?>(null)
@@ -38,19 +41,44 @@ class MovieDetailViewModel @Inject constructor(
         if (id == null) flowOf(false) else movieRepository.isInWatchlist(id)
     }
 
-    val uiState: StateFlow<MovieDetailUiState> = combine(
+    private val syncMetadata = movieId.flatMapLatest { id ->
+        if (id == null) flowOf(SyncMetadata(null, false, null)) else movieRepository.observeMovieDetailSyncMetadata(id)
+    }
+
+    // kotlinx.coroutines' typed `combine` overload tops out at 5 flows, and there are 7 total —
+    // the first 5 are combined here, then combined again with sync/connectivity state below.
+    private data class DetailCore(
+        val detail: MovieDetail?,
+        val isLoading: Boolean,
+        val errorMessage: String?,
+        val isFavorite: Boolean,
+        val isInWatchlist: Boolean,
+    )
+
+    private val detailCore = combine(
         detail,
         isLoading,
         errorMessage,
         isFavorite,
         isInWatchlist,
     ) { detail, loading, error, favorite, inWatchlist ->
+        DetailCore(detail, loading, error, favorite, inWatchlist)
+    }
+
+    val uiState: StateFlow<MovieDetailUiState> = combine(
+        detailCore,
+        syncMetadata,
+        connectivityObserver.isOnline,
+    ) { core, syncMetadata, isOnline ->
         MovieDetailUiState(
-            movie = detail?.toUi(),
-            isLoading = loading,
-            errorMessage = error,
-            isFavorite = favorite,
-            isInWatchlist = inWatchlist,
+            movie = core.detail?.toUi(),
+            isLoading = core.isLoading,
+            errorMessage = core.errorMessage,
+            isFavorite = core.isFavorite,
+            isInWatchlist = core.isInWatchlist,
+            isOffline = !isOnline,
+            isStale = syncMetadata.isStale,
+            lastSyncedAtEpochMillis = syncMetadata.lastSyncedAtEpochMillis,
         )
     }.stateIn(
         scope = viewModelScope,

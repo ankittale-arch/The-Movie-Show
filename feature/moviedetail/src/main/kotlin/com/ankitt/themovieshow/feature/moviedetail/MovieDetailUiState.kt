@@ -6,6 +6,9 @@ data class MovieDetailUiState(
     val errorMessage: String? = null,
     val isFavorite: Boolean = false,
     val isInWatchlist: Boolean = false,
+    val isOffline: Boolean = false,
+    val isStale: Boolean = false,
+    val lastSyncedAtEpochMillis: Long? = null,
 )
 
 data class MovieDetailUi(

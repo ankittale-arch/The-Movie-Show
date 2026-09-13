@@ -53,6 +53,11 @@ dependencies {
     implementation(project(":feature:moviedetail"))
     implementation(project(":feature:bookmarks"))
     implementation(project(":feature:recentlyviewed"))
+    implementation(project(":core:sync"))
+
+    implementation(libs.androidx.work.runtime.ktx)
+    implementation(libs.androidx.hilt.work)
+    ksp(libs.androidx.hilt.compiler)
 
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)

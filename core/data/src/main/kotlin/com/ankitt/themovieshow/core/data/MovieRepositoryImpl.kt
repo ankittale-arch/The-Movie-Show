@@ -11,6 +11,7 @@ import com.ankitt.themovieshow.core.data.model.Movie
 import com.ankitt.themovieshow.core.data.model.MovieDetail
 import com.ankitt.themovieshow.core.data.model.PendingOperation
 import com.ankitt.themovieshow.core.data.model.PendingOperationType
+import com.ankitt.themovieshow.core.data.model.SyncMetadata
 import com.ankitt.themovieshow.core.database.TheMovieShowDatabase
 import com.ankitt.themovieshow.core.database.bookmark.BookmarkDao
 import com.ankitt.themovieshow.core.database.bookmark.FavoriteMovieEntity
@@ -64,15 +65,37 @@ class MovieRepositoryImpl @Inject constructor(
             .map { entities -> entities.map { it.toDomain() } }
             .flowOn(ioDispatcher)
 
-    override suspend fun refreshHome(): Result<Unit> = withContext(ioDispatcher) {
+    override fun observeHomeSyncMetadata(): Flow<SyncMetadata> {
+        val resources = listOf(
+            HomeListKeys.TRENDING,
+            HomeListKeys.NOW_PLAYING,
+            HomeListKeys.POPULAR,
+            HomeListKeys.DISCOVER,
+            HomeListKeys.UPCOMING,
+            HomeListKeys.GENRES,
+        )
+        return combine(resources.map { syncStateDao.observe(it) }) { states ->
+            val lastSyncedTimestamps = states.mapNotNull { it?.lastSyncedAtEpochMillis }
+            val isStale = resources.indices.any { index ->
+                CachePolicy.isListStale(resources[index], states[index]?.lastSyncedAtEpochMillis)
+            }
+            SyncMetadata(
+                lastSyncedAtEpochMillis = lastSyncedTimestamps.minOrNull(),
+                isStale = isStale,
+                lastErrorMessage = states.firstNotNullOfOrNull { it?.lastErrorMessage },
+            )
+        }.flowOn(ioDispatcher)
+    }
+
+    override suspend fun refreshHome(forceRefresh: Boolean): Result<Unit> = withContext(ioDispatcher) {
         val results = coroutineScope {
             listOf(
-                async { refreshMoviesForListInternal(HomeListKeys.TRENDING) },
-                async { refreshMoviesForListInternal(HomeListKeys.NOW_PLAYING) },
-                async { refreshMoviesForListInternal(HomeListKeys.POPULAR) },
-                async { refreshMoviesForListInternal(HomeListKeys.DISCOVER) },
-                async { refreshMoviesForListInternal(HomeListKeys.UPCOMING) },
-                async { refreshGenres() },
+                async { refreshMoviesForListInternal(HomeListKeys.TRENDING, forceRefresh) },
+                async { refreshMoviesForListInternal(HomeListKeys.NOW_PLAYING, forceRefresh) },
+                async { refreshMoviesForListInternal(HomeListKeys.POPULAR, forceRefresh) },
+                async { refreshMoviesForListInternal(HomeListKeys.DISCOVER, forceRefresh) },
+                async { refreshMoviesForListInternal(HomeListKeys.UPCOMING, forceRefresh) },
+                async { refreshGenres(forceRefresh) },
             ).awaitAll()
         }
 
@@ -92,9 +115,10 @@ class MovieRepositoryImpl @Inject constructor(
         movieDao.clearListMembership(HomeListKeys.SEARCH)
     }
 
-    override suspend fun refreshMoviesForList(listKey: String): Result<Unit> = withContext(ioDispatcher) {
-        refreshMoviesForListInternal(listKey)
-    }
+    override suspend fun refreshMoviesForList(listKey: String, forceRefresh: Boolean): Result<Unit> =
+        withContext(ioDispatcher) {
+            refreshMoviesForListInternal(listKey, forceRefresh)
+        }
 
     override suspend fun loadMoreMoviesForList(listKey: String, nextPage: Int): Result<Boolean> =
         withContext(ioDispatcher) {
@@ -129,8 +153,12 @@ class MovieRepositoryImpl @Inject constructor(
         }
     }
 
-    private suspend fun refreshMoviesForListInternal(listKey: String): Result<Unit> =
-        refreshList(listKey) { fetchMoviePage(listKey, page = 1).results }
+    private suspend fun refreshMoviesForListInternal(listKey: String, forceRefresh: Boolean): Result<Unit> {
+        if (!forceRefresh && !CachePolicy.isListStale(listKey, syncStateDao.get(listKey)?.lastSyncedAtEpochMillis)) {
+            return Result.success(Unit)
+        }
+        return refreshList(listKey) { fetchMoviePage(listKey, page = 1).results }
+    }
 
     private suspend fun refreshList(listKey: String, fetch: suspend () -> List<MovieDto>): Result<Unit> {
         val result = runCatching {
@@ -178,18 +206,47 @@ class MovieRepositoryImpl @Inject constructor(
         }
     }.flowOn(ioDispatcher)
 
-    override suspend fun refreshMovieDetail(movieId: Int): Result<Unit> = withContext(ioDispatcher) {
-        runCatching {
-            val dto = tmdbApiService.getMovieDetail(movieId)
-            movieDetailDao.replaceMovieDetail(
-                movie = dto.toMovieEntity(),
-                detail = dto.toDetailEntity(),
-                genres = dto.genres.map { it.toEntity() },
-                genreCrossRefs = dto.genres.map { MovieGenreCrossRef(movieId = dto.id, genreId = it.id) },
-                cast = dto.credits.cast.map { it.toEntity(movieId = dto.id) },
+    override suspend fun refreshMovieDetail(movieId: Int, forceRefresh: Boolean): Result<Unit> =
+        withContext(ioDispatcher) {
+            val resource = movieDetailResource(movieId)
+            if (!forceRefresh && !CachePolicy.isMovieDetailStale(syncStateDao.get(resource)?.lastSyncedAtEpochMillis)) {
+                return@withContext Result.success(Unit)
+            }
+
+            val result = runCatching {
+                val dto = tmdbApiService.getMovieDetail(movieId)
+                movieDetailDao.replaceMovieDetail(
+                    movie = dto.toMovieEntity(),
+                    detail = dto.toDetailEntity(),
+                    genres = dto.genres.map { it.toEntity() },
+                    genreCrossRefs = dto.genres.map { MovieGenreCrossRef(movieId = dto.id, genreId = it.id) },
+                    cast = dto.credits.cast.map { it.toEntity(movieId = dto.id) },
+                )
+            }
+            syncStateDao.upsert(
+                SyncStateEntity(
+                    resource = resource,
+                    lastSyncedAtEpochMillis = System.currentTimeMillis(),
+                    isSyncing = false,
+                    lastErrorMessage = result.exceptionOrNull()?.message,
+                ),
             )
+            result
         }
-    }
+
+    /** [SyncStateEntity] resource key for one movie's detail — one row per movie, not per list. */
+    private fun movieDetailResource(movieId: Int) = "movie_detail:$movieId"
+
+    override fun observeMovieDetailSyncMetadata(movieId: Int): Flow<SyncMetadata> =
+        syncStateDao.observe(movieDetailResource(movieId))
+            .map { state ->
+                SyncMetadata(
+                    lastSyncedAtEpochMillis = state?.lastSyncedAtEpochMillis,
+                    isStale = CachePolicy.isMovieDetailStale(state?.lastSyncedAtEpochMillis),
+                    lastErrorMessage = state?.lastErrorMessage,
+                )
+            }
+            .flowOn(ioDispatcher)
 
     override fun observeFavoriteMovies(): Flow<List<Movie>> =
         bookmarkDao.observeFavoriteMovies()
@@ -284,7 +341,11 @@ class MovieRepositoryImpl @Inject constructor(
         retryCount = retryCount,
     )
 
-    private suspend fun refreshGenres(): Result<Unit> {
+    private suspend fun refreshGenres(forceRefresh: Boolean): Result<Unit> {
+        val lastSynced = syncStateDao.get(HomeListKeys.GENRES)?.lastSyncedAtEpochMillis
+        if (!forceRefresh && !CachePolicy.isListStale(HomeListKeys.GENRES, lastSynced)) {
+            return Result.success(Unit)
+        }
         val result = runCatching {
             val genres = tmdbApiService.getMovieGenres().genres
             movieDao.upsertGenres(genres.map { it.toEntity() })

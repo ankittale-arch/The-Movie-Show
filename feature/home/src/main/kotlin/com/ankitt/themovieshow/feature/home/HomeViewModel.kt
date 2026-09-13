@@ -2,11 +2,13 @@ package com.ankitt.themovieshow.feature.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ankitt.themovieshow.core.common.network.ConnectivityObserver
 import com.ankitt.themovieshow.core.data.HomeListKeys
 import com.ankitt.themovieshow.core.data.MovieRepository
 import com.ankitt.themovieshow.core.data.TmdbImageUrl
 import com.ankitt.themovieshow.core.data.model.Movie
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -23,12 +25,18 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val movieRepository: MovieRepository,
+    connectivityObserver: ConnectivityObserver,
 ) : ViewModel() {
+
+    private val isRefreshing = MutableStateFlow(false)
 
     val uiState: StateFlow<HomeUiState> = combine(
         moviesCombined(),
         movieRepository.observeGenres(),
-    ) { movies, genres ->
+        isRefreshing,
+        movieRepository.observeHomeSyncMetadata(),
+        connectivityObserver.isOnline,
+    ) { movies, genres, refreshing, syncMetadata, isOnline ->
         HomeUiState(
             heroMovies = movies.hero.map { it.toHomeMovie() },
             genres = genres.map { HomeGenre(id = it.id, name = it.name) },
@@ -36,6 +44,10 @@ class HomeViewModel @Inject constructor(
             popular = movies.popular.map { it.toHomeMovie() },
             discover = movies.discover.map { it.toHomeMovie() },
             upcoming = movies.upcoming.map { it.toHomeMovie() },
+            isRefreshing = refreshing,
+            isOffline = !isOnline,
+            isStale = syncMetadata.isStale,
+            lastSyncedAtEpochMillis = syncMetadata.lastSyncedAtEpochMillis,
         )
     }.stateIn(
         scope = viewModelScope,
@@ -45,6 +57,16 @@ class HomeViewModel @Inject constructor(
 
     init {
         viewModelScope.launch { movieRepository.refreshHome() }
+    }
+
+    /** Pull-to-refresh: bypasses [com.ankitt.themovieshow.core.data.CachePolicy] unconditionally. */
+    fun refresh() {
+        if (isRefreshing.value) return
+        viewModelScope.launch {
+            isRefreshing.value = true
+            movieRepository.refreshHome(forceRefresh = true)
+            isRefreshing.value = false
+        }
     }
 
     // kotlinx.coroutines' typed `combine` overload tops out at 5 flows, and there are 6 rows

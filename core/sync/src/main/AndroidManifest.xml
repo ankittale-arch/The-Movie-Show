@@ -1,0 +1,23 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!--
+    Registers SyncInitializer with androidx.startup so the periodic outbox sync is scheduled at
+    process start without adding scheduling logic to TheMovieShowApplication.onCreate (see its
+    doc comment). tools:node="merge" combines this <provider> with the one androidx.work itself
+    contributes for its own default WorkManagerInitializer, rather than one replacing the other -
+    WorkManager's own initializer is still what wires up Configuration.Provider, this only adds
+    our own startup step alongside it.
+    -->
+    <application>
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data
+                android:name="com.ankitt.themovieshow.core.sync.SyncInitializer"
+                android:value="androidx.startup" />
+        </provider>
+    </application>
+</manifest>

@@ -4,6 +4,7 @@ import com.ankitt.themovieshow.core.data.model.Genre
 import com.ankitt.themovieshow.core.data.model.Movie
 import com.ankitt.themovieshow.core.data.model.MovieDetail
 import com.ankitt.themovieshow.core.data.model.PendingOperation
+import com.ankitt.themovieshow.core.data.model.SyncMetadata
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -19,11 +20,23 @@ interface MovieRepository {
     fun observeGenres(): Flow<List<Genre>>
 
     /**
+     * The oldest [SyncMetadata.lastSyncedAtEpochMillis] across every Home row, and whether *any*
+     * row is stale by [CachePolicy] — the worst-case freshness across the whole screen, for a
+     * single "Last updated" banner rather than one per row.
+     */
+    fun observeHomeSyncMetadata(): Flow<SyncMetadata>
+
+    /**
      * Fetches every Home row from TMDB and writes it into Room. Each list is refreshed
      * independently so one endpoint failing (e.g. a flaky `discover/movie` call) doesn't blank
      * out the rows that succeeded. Returns failure only if every list failed.
+     *
+     * @param forceRefresh When false (screen-open / background worker), each row is skipped if
+     * [CachePolicy] considers it still fresh — Room already has the last-fetched data, so there is
+     * nothing to show the user that a network call would improve. Pull-to-refresh passes true to
+     * bypass that check unconditionally.
      */
-    suspend fun refreshHome(): Result<Unit>
+    suspend fun refreshHome(forceRefresh: Boolean = false): Result<Unit>
 
     /** Searches TMDB and replaces [HomeListKeys.SEARCH]'s cached row with the results. */
     suspend fun searchMovies(query: String): Result<Unit>
@@ -35,9 +48,9 @@ interface MovieRepository {
      * Fetches one row from TMDB and replaces its cached membership — the single-list building
      * block [refreshHome] runs five of concurrently. Accepts any [HomeListKeys] value (including
      * a `genre(id)` key) and dispatches to the matching TMDB call; an unrecognized key fails
-     * rather than silently no-op-ing.
+     * rather than silently no-op-ing. See [refreshHome] for [forceRefresh].
      */
-    suspend fun refreshMoviesForList(listKey: String): Result<Unit>
+    suspend fun refreshMoviesForList(listKey: String, forceRefresh: Boolean = false): Result<Unit>
 
     /**
      * Fetches [nextPage] for a row and appends it after the page(s) already cached (page 1 must
@@ -50,8 +63,16 @@ interface MovieRepository {
     /** Null if [movieId] has never been cached (not in any list and never viewed before). */
     fun observeMovieDetail(movieId: Int): Flow<MovieDetail?>
 
-    /** Fetches a movie's full detail + cast from TMDB and writes it into Room. */
-    suspend fun refreshMovieDetail(movieId: Int): Result<Unit>
+    /**
+     * Fetches a movie's full detail + cast from TMDB and writes it into Room. Gated by
+     * [CachePolicy] the same way as [refreshHome] unless [forceRefresh] is true — detail data is
+     * effectively immutable once a movie is released, so re-opening a recently viewed movie
+     * within the staleness window skips the network call entirely.
+     */
+    suspend fun refreshMovieDetail(movieId: Int, forceRefresh: Boolean = false): Result<Unit>
+
+    /** Freshness of one movie's cached detail — see [observeHomeSyncMetadata] for the Home equivalent. */
+    fun observeMovieDetailSyncMetadata(movieId: Int): Flow<SyncMetadata>
 
     fun observeFavoriteMovies(): Flow<List<Movie>>
 

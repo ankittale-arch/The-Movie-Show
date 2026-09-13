@@ -7,6 +7,10 @@ data class HomeUiState(
     val popular: List<HomeMovie> = emptyList(),
     val discover: List<HomeMovie> = emptyList(),
     val upcoming: List<HomeMovie> = emptyList(),
+    val isRefreshing: Boolean = false,
+    val isOffline: Boolean = false,
+    val isStale: Boolean = false,
+    val lastSyncedAtEpochMillis: Long? = null,
 )
 
 data class HomeMovie(
