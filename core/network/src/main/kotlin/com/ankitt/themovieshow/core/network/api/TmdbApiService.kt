@@ -1,12 +1,7 @@
 package com.ankitt.themovieshow.core.network.api
 
-import com.ankitt.themovieshow.core.network.model.ConfigurationDto
-import com.ankitt.themovieshow.core.network.model.GenreListDto
-import com.ankitt.themovieshow.core.network.model.MovieDetailDto
-import com.ankitt.themovieshow.core.network.model.MoviePageDto
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import com.ankitt.themovieshow.core.network.model.*
+import retrofit2.http.*
 
 /**
  * Thin Retrofit interface: one method per TMDB endpoint, returning DTOs only. This interface is

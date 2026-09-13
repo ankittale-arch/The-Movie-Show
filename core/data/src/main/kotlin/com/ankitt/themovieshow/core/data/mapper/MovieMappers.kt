@@ -1,17 +1,8 @@
 package com.ankitt.themovieshow.core.data.mapper
 
-import com.ankitt.themovieshow.core.data.model.CastMember
-import com.ankitt.themovieshow.core.data.model.Genre
-import com.ankitt.themovieshow.core.data.model.Movie
-import com.ankitt.themovieshow.core.database.movie.GenreEntity
-import com.ankitt.themovieshow.core.database.movie.MovieCastEntity
-import com.ankitt.themovieshow.core.database.movie.MovieDetailEntity
-import com.ankitt.themovieshow.core.database.movie.MovieEntity
-import com.ankitt.themovieshow.core.network.model.CastMemberDto
-import com.ankitt.themovieshow.core.network.model.GenreDto
-import com.ankitt.themovieshow.core.network.model.MovieDetailDto
-import com.ankitt.themovieshow.core.network.model.MovieDto
-import com.ankitt.themovieshow.core.network.model.VideoDto
+import com.ankitt.themovieshow.core.data.model.*
+import com.ankitt.themovieshow.core.database.movie.*
+import com.ankitt.themovieshow.core.network.model.*
 
 fun MovieDto.toEntity(): MovieEntity = MovieEntity(
     movieId = id,

@@ -1,8 +1,6 @@
 package com.ankitt.themovieshow.core.database.movie
 
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.Index
+import androidx.room.*
 
 /**
  * Which genres a movie has, per its detail response. Deliberately not modeled until now — Home's

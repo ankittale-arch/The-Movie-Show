@@ -1,10 +1,6 @@
 package com.ankitt.themovieshow.core.data
 
-import com.ankitt.themovieshow.core.data.model.Genre
-import com.ankitt.themovieshow.core.data.model.Movie
-import com.ankitt.themovieshow.core.data.model.MovieDetail
-import com.ankitt.themovieshow.core.data.model.PendingOperation
-import com.ankitt.themovieshow.core.data.model.SyncMetadata
+import com.ankitt.themovieshow.core.data.model.*
 import kotlinx.coroutines.flow.Flow
 
 /**

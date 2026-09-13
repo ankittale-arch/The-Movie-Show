@@ -1,8 +1,6 @@
 package com.ankitt.themovieshow.core.database.movie
 
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.*
 
 /**
  * 1:1 extension of [MovieEntity] for fields only `GET movie/{id}` returns (never a list

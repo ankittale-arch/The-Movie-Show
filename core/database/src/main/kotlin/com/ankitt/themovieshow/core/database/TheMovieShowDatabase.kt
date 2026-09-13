@@ -2,17 +2,8 @@ package com.ankitt.themovieshow.core.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.ankitt.themovieshow.core.database.bookmark.BookmarkDao
-import com.ankitt.themovieshow.core.database.bookmark.FavoriteMovieEntity
-import com.ankitt.themovieshow.core.database.bookmark.WatchlistMovieEntity
-import com.ankitt.themovieshow.core.database.movie.GenreEntity
-import com.ankitt.themovieshow.core.database.movie.MovieCastEntity
-import com.ankitt.themovieshow.core.database.movie.MovieDao
-import com.ankitt.themovieshow.core.database.movie.MovieDetailDao
-import com.ankitt.themovieshow.core.database.movie.MovieDetailEntity
-import com.ankitt.themovieshow.core.database.movie.MovieEntity
-import com.ankitt.themovieshow.core.database.movie.MovieGenreCrossRef
-import com.ankitt.themovieshow.core.database.movie.MovieListEntity
+import com.ankitt.themovieshow.core.database.bookmark.*
+import com.ankitt.themovieshow.core.database.movie.*
 import com.ankitt.themovieshow.core.database.outbox.PendingOperationDao
 import com.ankitt.themovieshow.core.database.outbox.PendingOperationEntity
 import com.ankitt.themovieshow.core.database.recentlyviewed.RecentlyViewedDao

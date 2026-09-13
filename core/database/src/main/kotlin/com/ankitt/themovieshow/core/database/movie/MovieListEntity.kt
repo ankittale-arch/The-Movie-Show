@@ -1,8 +1,6 @@
 package com.ankitt.themovieshow.core.database.movie
 
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.Index
+import androidx.room.*
 
 /**
  * Membership of a [MovieEntity] in one of the Home screen's rows (Now Playing, Popular, Discover,

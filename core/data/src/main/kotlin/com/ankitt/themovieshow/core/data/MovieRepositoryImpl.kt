@@ -2,24 +2,11 @@ package com.ankitt.themovieshow.core.data
 
 import androidx.room.withTransaction
 import com.ankitt.themovieshow.core.common.di.IoDispatcher
-import com.ankitt.themovieshow.core.data.mapper.toDetailEntity
-import com.ankitt.themovieshow.core.data.mapper.toDomain
-import com.ankitt.themovieshow.core.data.mapper.toEntity
-import com.ankitt.themovieshow.core.data.mapper.toMovieEntity
-import com.ankitt.themovieshow.core.data.model.Genre
-import com.ankitt.themovieshow.core.data.model.Movie
-import com.ankitt.themovieshow.core.data.model.MovieDetail
-import com.ankitt.themovieshow.core.data.model.PendingOperation
-import com.ankitt.themovieshow.core.data.model.PendingOperationType
-import com.ankitt.themovieshow.core.data.model.SyncMetadata
+import com.ankitt.themovieshow.core.data.mapper.*
+import com.ankitt.themovieshow.core.data.model.*
 import com.ankitt.themovieshow.core.database.TheMovieShowDatabase
-import com.ankitt.themovieshow.core.database.bookmark.BookmarkDao
-import com.ankitt.themovieshow.core.database.bookmark.FavoriteMovieEntity
-import com.ankitt.themovieshow.core.database.bookmark.WatchlistMovieEntity
-import com.ankitt.themovieshow.core.database.movie.MovieDao
-import com.ankitt.themovieshow.core.database.movie.MovieDetailDao
-import com.ankitt.themovieshow.core.database.movie.MovieGenreCrossRef
-import com.ankitt.themovieshow.core.database.movie.MovieListEntity
+import com.ankitt.themovieshow.core.database.bookmark.*
+import com.ankitt.themovieshow.core.database.movie.*
 import com.ankitt.themovieshow.core.database.outbox.PendingOperationDao
 import com.ankitt.themovieshow.core.database.outbox.PendingOperationEntity
 import com.ankitt.themovieshow.core.database.recentlyviewed.RecentlyViewedDao
@@ -29,15 +16,8 @@ import com.ankitt.themovieshow.core.database.sync.SyncStateEntity
 import com.ankitt.themovieshow.core.network.api.TmdbApiService
 import com.ankitt.themovieshow.core.network.model.MovieDto
 import com.ankitt.themovieshow.core.network.model.MoviePageDto
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 /** Cap on how many rows [RecentlyViewedDao] keeps — older entries are trimmed on every write. */

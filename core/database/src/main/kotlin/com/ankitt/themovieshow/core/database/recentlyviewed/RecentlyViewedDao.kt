@@ -1,8 +1,6 @@
 package com.ankitt.themovieshow.core.database.recentlyviewed
 
-import androidx.room.Dao
-import androidx.room.Query
-import androidx.room.Upsert
+import androidx.room.*
 import com.ankitt.themovieshow.core.database.movie.MovieEntity
 import kotlinx.coroutines.flow.Flow
 

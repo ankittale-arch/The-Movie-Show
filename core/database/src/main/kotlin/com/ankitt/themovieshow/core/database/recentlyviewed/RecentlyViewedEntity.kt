@@ -1,8 +1,6 @@
 package com.ankitt.themovieshow.core.database.recentlyviewed
 
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.*
 import com.ankitt.themovieshow.core.database.movie.MovieEntity
 
 @Entity(

@@ -3,9 +3,7 @@ package com.ankitt.themovieshow
 import android.app.Application
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
-import coil3.ImageLoader
-import coil3.PlatformContext
-import coil3.SingletonImageLoader
+import coil3.*
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.android.EntryPointAccessors

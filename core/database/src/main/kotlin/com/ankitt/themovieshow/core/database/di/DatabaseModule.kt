@@ -4,12 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.ankitt.themovieshow.core.database.TheMovieShowDatabase
 import com.ankitt.themovieshow.core.database.bookmark.BookmarkDao
-import com.ankitt.themovieshow.core.database.migration.MIGRATION_1_2
-import com.ankitt.themovieshow.core.database.migration.MIGRATION_2_3
-import com.ankitt.themovieshow.core.database.migration.MIGRATION_3_4
-import com.ankitt.themovieshow.core.database.migration.MIGRATION_4_5
-import com.ankitt.themovieshow.core.database.migration.MIGRATION_5_6
-import com.ankitt.themovieshow.core.database.migration.MIGRATION_6_7
+import com.ankitt.themovieshow.core.database.migration.*
 import com.ankitt.themovieshow.core.database.movie.MovieDao
 import com.ankitt.themovieshow.core.database.movie.MovieDetailDao
 import com.ankitt.themovieshow.core.database.outbox.PendingOperationDao

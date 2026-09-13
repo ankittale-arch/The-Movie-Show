@@ -1,13 +1,7 @@
 package com.ankitt.themovieshow.core.sync
 
 import android.content.Context
-import androidx.work.BackoffPolicy
-import androidx.work.Constraints
-import androidx.work.ExistingPeriodicWorkPolicy
-import androidx.work.NetworkType
-import androidx.work.PeriodicWorkRequestBuilder
-import androidx.work.WorkManager
-import androidx.work.WorkRequest
+import androidx.work.*
 import java.util.concurrent.TimeUnit
 
 private const val OUTBOX_SYNC_WORK_NAME = "outbox_periodic_sync"

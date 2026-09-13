@@ -1,8 +1,6 @@
 package com.ankitt.themovieshow.core.database.movie
 
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.Index
+import androidx.room.*
 
 /**
  * Denormalized on purpose: no separate `Person` table, since nothing else in the app needs an
