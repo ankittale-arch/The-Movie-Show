@@ -24,6 +24,9 @@ class MovieListContentTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
+    // targetState is just Unit — AnimatedContent is only used here to obtain a real
+    // AnimatedContentScope for LocalNavAnimatedContentScope, not to animate between states.
+    @Suppress("UnusedContentLambdaTargetStateParameter")
     private fun setContent(
         uiState: MovieListUiState,
         title: String = "Action",
