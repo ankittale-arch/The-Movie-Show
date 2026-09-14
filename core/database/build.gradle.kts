@@ -21,6 +21,24 @@ android {
     kotlin {
         jvmToolchain(17)
     }
+
+    // Room's in-memory database needs a real SQLite implementation, which the plain JVM unit
+    // test runner doesn't provide — Robolectric supplies one, so DAO/migration tests run fast as
+    // local JVM tests instead of needing an emulator.
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
+
+    // MigrationTestHelper loads each version's exported schema JSON as an Android asset (see
+    // room.schemaLocation below) rather than reading the file directly, so the schemas/ directory
+    // is wired in here as a test asset source so Robolectric's AssetManager can find it too.
+    sourceSets {
+        getByName("test") {
+            assets.srcDirs("$projectDir/schemas")
+        }
+    }
 }
 
 // Room validates every @Entity/@Dao against a schema snapshot on each build and writes that
@@ -48,4 +66,8 @@ dependencies {
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.androidx.room.testing)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.turbine)
+    testImplementation(libs.androidx.test.core)
+    testImplementation(libs.androidx.junit)
 }

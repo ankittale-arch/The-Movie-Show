@@ -42,7 +42,7 @@ fun RecentlyViewedScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun RecentlyViewedContent(
+internal fun RecentlyViewedContent(
     uiState: RecentlyViewedUiState,
     onBackClick: () -> Unit,
     onMovieClick: (Int) -> Unit = {},

@@ -1,0 +1,890 @@
+{
+  ".claude/settings.local.json": {
+    "mtime": 1789222263.8122306,
+    "seen": 1789356892.73984,
+    "ast_hash": "85d5ccd7d4e097ca0d9c0f324dbe643e",
+    "semantic_hash": "85d5ccd7d4e097ca0d9c0f324dbe643e"
+  },
+  "app/build.gradle.kts": {
+    "mtime": 1789287984.652847,
+    "seen": 1789356892.739842,
+    "ast_hash": "4c3b32a7fe892b00629286efe1b8b427",
+    "semantic_hash": "4c3b32a7fe892b00629286efe1b8b427"
+  },
+  "app/src/main/java/com/ankitt/themovieshow/MainActivity.kt": {
+    "mtime": 1789050136.06088,
+    "seen": 1789356892.7398431,
+    "ast_hash": "9129cfdc0cb9c4b327cb273999298a81",
+    "semantic_hash": "9129cfdc0cb9c4b327cb273999298a81"
+  },
+  "app/src/main/java/com/ankitt/themovieshow/TheMovieShowApplication.kt": {
+    "mtime": 1789303262.5875237,
+    "seen": 1789356892.739844,
+    "ast_hash": "267107ac615fc5979b77a174471340f5",
+    "semantic_hash": "267107ac615fc5979b77a174471340f5"
+  },
+  "app/src/main/java/com/ankitt/themovieshow/di/ImageLoaderModule.kt": {
+    "mtime": 1789229525.9864964,
+    "seen": 1789356892.739845,
+    "ast_hash": "a6f69f8b245b09a428ca805e7dd15ed8",
+    "semantic_hash": "a6f69f8b245b09a428ca805e7dd15ed8"
+  },
+  "app/src/main/java/com/ankitt/themovieshow/navigation/AppNavHost.kt": {
+    "mtime": 1789303262.5882103,
+    "seen": 1789356892.739845,
+    "ast_hash": "63e765dbc1853e32e526f6cb13c74129",
+    "semantic_hash": "63e765dbc1853e32e526f6cb13c74129"
+  },
+  "build.gradle.kts": {
+    "mtime": 1789049889.6418734,
+    "seen": 1789356892.739846,
+    "ast_hash": "104279b7b272ec4bbfc5a70048f35538",
+    "semantic_hash": "104279b7b272ec4bbfc5a70048f35538"
+  },
+  "core/common/build.gradle.kts": {
+    "mtime": 1789051046.4466794,
+    "seen": 1789356892.739847,
+    "ast_hash": "474b419edee71d9998afbbf9a72c4977",
+    "semantic_hash": "474b419edee71d9998afbbf9a72c4977"
+  },
+  "core/common/src/main/kotlin/com/ankitt/themovieshow/core/common/di/ApplicationScopeModule.kt": {
+    "mtime": 1789049933.7054248,
+    "seen": 1789356892.739848,
+    "ast_hash": "8c8ec37c64e47304c27acdf3ac73f3d8",
+    "semantic_hash": "8c8ec37c64e47304c27acdf3ac73f3d8"
+  },
+  "core/common/src/main/kotlin/com/ankitt/themovieshow/core/common/di/ConnectivityModule.kt": {
+    "mtime": 1789049948.8764033,
+    "seen": 1789356892.739848,
+    "ast_hash": "6f90289c70eb14cd4d8e6ca697151030",
+    "semantic_hash": "6f90289c70eb14cd4d8e6ca697151030"
+  },
+  "core/common/src/main/kotlin/com/ankitt/themovieshow/core/common/di/DispatcherModule.kt": {
+    "mtime": 1789049918.4495044,
+    "seen": 1789356892.7398489,
+    "ast_hash": "e816e91e18585e5a81bcea6709b3fc59",
+    "semantic_hash": "e816e91e18585e5a81bcea6709b3fc59"
+  },
+  "core/common/src/main/kotlin/com/ankitt/themovieshow/core/common/network/ConnectivityObserver.kt": {
+    "mtime": 1789049924.7866485,
+    "seen": 1789356892.73985,
+    "ast_hash": "b3eca707708853d4f0eed341fe6afdcc",
+    "semantic_hash": "b3eca707708853d4f0eed341fe6afdcc"
+  },
+  "core/common/src/main/kotlin/com/ankitt/themovieshow/core/common/network/ConnectivityObserverImpl.kt": {
+    "mtime": 1789303262.4561312,
+    "seen": 1789356892.73985,
+    "ast_hash": "dcdf12eca170dd29a42f2b9687f1fb62",
+    "semantic_hash": "dcdf12eca170dd29a42f2b9687f1fb62"
+  },
+  "core/data/build.gradle.kts": {
+    "mtime": 1789283136.6310313,
+    "seen": 1789356892.739851,
+    "ast_hash": "fcc8ee9dfa133fe1dd0ecf41859452a4",
+    "semantic_hash": "fcc8ee9dfa133fe1dd0ecf41859452a4"
+  },
+  "core/data/src/main/kotlin/com/ankitt/themovieshow/core/data/CachePolicy.kt": {
+    "mtime": 1789288746.2540846,
+    "seen": 1789356892.739851,
+    "ast_hash": "9b3378ac4097a9fbb5e4dfa3abf8c129",
+    "semantic_hash": "9b3378ac4097a9fbb5e4dfa3abf8c129"
+  },
+  "core/data/src/main/kotlin/com/ankitt/themovieshow/core/data/HomeListKeys.kt": {
+    "mtime": 1789225419.6716545,
+    "seen": 1789356892.739852,
+    "ast_hash": "f785652e8dbe6502060f13a0e927bfee",
+    "semantic_hash": "f785652e8dbe6502060f13a0e927bfee"
+  },
+  "core/data/src/main/kotlin/com/ankitt/themovieshow/core/data/MovieRepository.kt": {
+    "mtime": 1789306685.7664516,
+    "seen": 1789356892.739852,
+    "ast_hash": "624c1d6d4fa5b4b79b9e9260a0db9641",
+    "semantic_hash": "624c1d6d4fa5b4b79b9e9260a0db9641"
+  },
+  "core/data/src/main/kotlin/com/ankitt/themovieshow/core/data/MovieRepositoryImpl.kt": {
+    "mtime": 1789306694.0811915,
+    "seen": 1789356892.7398531,
+    "ast_hash": "b0bff3f40294f6726d02d793e31665e8",
+    "semantic_hash": "b0bff3f40294f6726d02d793e31665e8"
+  },
+  "core/data/src/main/kotlin/com/ankitt/themovieshow/core/data/TmdbImageUrl.kt": {
+    "mtime": 1789230891.2751741,
+    "seen": 1789356892.7398531,
+    "ast_hash": "0003a6fa39d2c8d281fd28498fbae55b",
+    "semantic_hash": "0003a6fa39d2c8d281fd28498fbae55b"
+  },
+  "core/data/src/main/kotlin/com/ankitt/themovieshow/core/data/di/DataModule.kt": {
+    "mtime": 1789221716.6571286,
+    "seen": 1789356892.739854,
+    "ast_hash": "193838b47c19988d49fa0841f4b55866",
+    "semantic_hash": "193838b47c19988d49fa0841f4b55866"
+  },
+  "core/data/src/main/kotlin/com/ankitt/themovieshow/core/data/mapper/MovieMappers.kt": {
+    "mtime": 1789307724.0553217,
+    "seen": 1789356892.739854,
+    "ast_hash": "ba96be751fb87b55c620a3d1d9c68251",
+    "semantic_hash": "ba96be751fb87b55c620a3d1d9c68251"
+  },
+  "core/data/src/main/kotlin/com/ankitt/themovieshow/core/data/model/Genre.kt": {
+    "mtime": 1789221670.6690335,
+    "seen": 1789356892.739855,
+    "ast_hash": "02317c6a0d42e89877f9f3c7de8088c9",
+    "semantic_hash": "02317c6a0d42e89877f9f3c7de8088c9"
+  },
+  "core/data/src/main/kotlin/com/ankitt/themovieshow/core/data/model/Movie.kt": {
+    "mtime": 1789221669.5003483,
+    "seen": 1789356892.739855,
+    "ast_hash": "d497a3fe30fb7181c82b30042ddf4dd2",
+    "semantic_hash": "d497a3fe30fb7181c82b30042ddf4dd2"
+  },
+  "core/data/src/main/kotlin/com/ankitt/themovieshow/core/data/model/MovieDetail.kt": {
+    "mtime": 1789307718.6435297,
+    "seen": 1789356892.7398558,
+    "ast_hash": "00f8a15986a2db062d2b060eb87ae818",
+    "semantic_hash": "00f8a15986a2db062d2b060eb87ae818"
+  },
+  "core/data/src/main/kotlin/com/ankitt/themovieshow/core/data/model/PendingOperation.kt": {
+    "mtime": 1789282928.6245832,
+    "seen": 1789356892.7398558,
+    "ast_hash": "0705acbe690369a37a3e004f99770c66",
+    "semantic_hash": "0705acbe690369a37a3e004f99770c66"
+  },
+  "core/data/src/main/kotlin/com/ankitt/themovieshow/core/data/model/SyncMetadata.kt": {
+    "mtime": 1789284802.3222716,
+    "seen": 1789356892.739857,
+    "ast_hash": "d2b6b26c1c9ded242b952a2d72bbee36",
+    "semantic_hash": "d2b6b26c1c9ded242b952a2d72bbee36"
+  },
+  "core/database/build.gradle.kts": {
+    "mtime": 1789051117.2419572,
+    "seen": 1789356892.739857,
+    "ast_hash": "beda08d2f255bac4f6dead093ed02cda",
+    "semantic_hash": "beda08d2f255bac4f6dead093ed02cda"
+  },
+  "core/database/schemas/com.ankitt.themovieshow.core.database.TheMovieShowDatabase/1.json": {
+    "mtime": 1789050484.1693547,
+    "seen": 1789356892.739858,
+    "ast_hash": "5adf92bbbce463ec01672bd95ef531a0",
+    "semantic_hash": "5adf92bbbce463ec01672bd95ef531a0"
+  },
+  "core/database/schemas/com.ankitt.themovieshow.core.database.TheMovieShowDatabase/2.json": {
+    "mtime": 1789221640.3283226,
+    "seen": 1789356892.739858,
+    "ast_hash": "28ee13050c8a0f323edfde085c1db522",
+    "semantic_hash": "28ee13050c8a0f323edfde085c1db522"
+  },
+  "core/database/schemas/com.ankitt.themovieshow.core.database.TheMovieShowDatabase/3.json": {
+    "mtime": 1789230859.3228006,
+    "seen": 1789356892.7398589,
+    "ast_hash": "ecd08a7733468db526853966988277af",
+    "semantic_hash": "ecd08a7733468db526853966988277af"
+  },
+  "core/database/schemas/com.ankitt.themovieshow.core.database.TheMovieShowDatabase/4.json": {
+    "mtime": 1789233865.039151,
+    "seen": 1789356892.7398589,
+    "ast_hash": "a113fe192988a57ea540b1e1f4f26132",
+    "semantic_hash": "a113fe192988a57ea540b1e1f4f26132"
+  },
+  "core/database/schemas/com.ankitt.themovieshow.core.database.TheMovieShowDatabase/5.json": {
+    "mtime": 1789282231.7517228,
+    "seen": 1789356892.7398589,
+    "ast_hash": "a349624c981dff1a5dc9dc8524ce8af1",
+    "semantic_hash": "a349624c981dff1a5dc9dc8524ce8af1"
+  },
+  "core/database/schemas/com.ankitt.themovieshow.core.database.TheMovieShowDatabase/7.json": {
+    "mtime": 1789283126.3668716,
+    "seen": 1789356892.73986,
+    "ast_hash": "febaeabfacadc7b389ceb764fe91e65f",
+    "semantic_hash": "febaeabfacadc7b389ceb764fe91e65f"
+  },
+  "core/database/src/main/kotlin/com/ankitt/themovieshow/core/database/TheMovieShowDatabase.kt": {
+    "mtime": 1789303262.3300383,
+    "seen": 1789356892.73986,
+    "ast_hash": "50a055fa00a3c3371550a5b0393040a9",
+    "semantic_hash": "50a055fa00a3c3371550a5b0393040a9"
+  },
+  "core/database/src/main/kotlin/com/ankitt/themovieshow/core/database/bookmark/BookmarkDao.kt": {
+    "mtime": 1789303262.3351603,
+    "seen": 1789356892.739861,
+    "ast_hash": "ddd585058f77606b458ef70a4523f420",
+    "semantic_hash": "ddd585058f77606b458ef70a4523f420"
+  },
+  "core/database/src/main/kotlin/com/ankitt/themovieshow/core/database/bookmark/FavoriteMovieEntity.kt": {
+    "mtime": 1789303262.3347862,
+    "seen": 1789356892.739861,
+    "ast_hash": "9c009ac7695556e542824e53e9f2afbc",
+    "semantic_hash": "9c009ac7695556e542824e53e9f2afbc"
+  },
+  "core/database/src/main/kotlin/com/ankitt/themovieshow/core/database/bookmark/WatchlistMovieEntity.kt": {
+    "mtime": 1789303262.3346007,
+    "seen": 1789356892.739862,
+    "ast_hash": "c8adba73f38c825a8d2e129272a81131",
+    "semantic_hash": "c8adba73f38c825a8d2e129272a81131"
+  },
+  "core/database/src/main/kotlin/com/ankitt/themovieshow/core/database/di/DatabaseModule.kt": {
+    "mtime": 1789303262.334089,
+    "seen": 1789356892.739862,
+    "ast_hash": "e909587baf4094cbda98adcda91e5895",
+    "semantic_hash": "e909587baf4094cbda98adcda91e5895"
+  },
+  "core/database/src/main/kotlin/com/ankitt/themovieshow/core/database/migration/DatabaseMigrations.kt": {
+    "mtime": 1789282867.3503802,
+    "seen": 1789356892.7398632,
+    "ast_hash": "eea377b22586d6dc9426cd4087a02ed4",
+    "semantic_hash": "eea377b22586d6dc9426cd4087a02ed4"
+  },
+  "core/database/src/main/kotlin/com/ankitt/themovieshow/core/database/movie/GenreEntity.kt": {
+    "mtime": 1789221559.1092641,
+    "seen": 1789356892.7398632,
+    "ast_hash": "1e42b684b43341b7cd5e72f995cbebbe",
+    "semantic_hash": "1e42b684b43341b7cd5e72f995cbebbe"
+  },
+  "core/database/src/main/kotlin/com/ankitt/themovieshow/core/database/movie/MovieCastEntity.kt": {
+    "mtime": 1789303262.3336918,
+    "seen": 1789356892.739864,
+    "ast_hash": "902573727335313ff84594e2e0a9c67f",
+    "semantic_hash": "902573727335313ff84594e2e0a9c67f"
+  },
+  "core/database/src/main/kotlin/com/ankitt/themovieshow/core/database/movie/MovieDao.kt": {
+    "mtime": 1789303262.3314316,
+    "seen": 1789356892.739864,
+    "ast_hash": "ee61819b477ee2086f29875a93ff77c9",
+    "semantic_hash": "ee61819b477ee2086f29875a93ff77c9"
+  },
+  "core/database/src/main/kotlin/com/ankitt/themovieshow/core/database/movie/MovieDetailDao.kt": {
+    "mtime": 1789303262.3319376,
+    "seen": 1789356892.739865,
+    "ast_hash": "4a853df8cacc0aa435e6fa7a2a007ce4",
+    "semantic_hash": "4a853df8cacc0aa435e6fa7a2a007ce4"
+  },
+  "core/database/src/main/kotlin/com/ankitt/themovieshow/core/database/movie/MovieDetailEntity.kt": {
+    "mtime": 1789303262.3328602,
+    "seen": 1789356892.739865,
+    "ast_hash": "b620734c3be8f7ef3ea94602f29a067c",
+    "semantic_hash": "b620734c3be8f7ef3ea94602f29a067c"
+  },
+  "core/database/src/main/kotlin/com/ankitt/themovieshow/core/database/movie/MovieEntity.kt": {
+    "mtime": 1789221557.7875304,
+    "seen": 1789356892.739866,
+    "ast_hash": "35735f515eec46957db677877ed3991c",
+    "semantic_hash": "35735f515eec46957db677877ed3991c"
+  },
+  "core/database/src/main/kotlin/com/ankitt/themovieshow/core/database/movie/MovieGenreCrossRef.kt": {
+    "mtime": 1789303262.3322854,
+    "seen": 1789356892.739866,
+    "ast_hash": "3b17d5ae62a107fd6acdd8c29cd6c94e",
+    "semantic_hash": "3b17d5ae62a107fd6acdd8c29cd6c94e"
+  },
+  "core/database/src/main/kotlin/com/ankitt/themovieshow/core/database/movie/MovieListEntity.kt": {
+    "mtime": 1789303262.3333285,
+    "seen": 1789356892.739867,
+    "ast_hash": "46b119216e48125741bbc1b1179d3ab1",
+    "semantic_hash": "46b119216e48125741bbc1b1179d3ab1"
+  },
+  "core/database/src/main/kotlin/com/ankitt/themovieshow/core/database/outbox/PendingOperationDao.kt": {
+    "mtime": 1789303262.3305373,
+    "seen": 1789356892.739867,
+    "ast_hash": "ce8f544927fb6ecf2651b4e56b06c868",
+    "semantic_hash": "ce8f544927fb6ecf2651b4e56b06c868"
+  },
+  "core/database/src/main/kotlin/com/ankitt/themovieshow/core/database/outbox/PendingOperationEntity.kt": {
+    "mtime": 1789282854.7859063,
+    "seen": 1789356892.739868,
+    "ast_hash": "2ab691287ae6e37bac35a982ba9fa13d",
+    "semantic_hash": "2ab691287ae6e37bac35a982ba9fa13d"
+  },
+  "core/database/src/main/kotlin/com/ankitt/themovieshow/core/database/recentlyviewed/RecentlyViewedDao.kt": {
+    "mtime": 1789303262.3310647,
+    "seen": 1789356892.739868,
+    "ast_hash": "15e135960c684b5523a8835ed66ed06b",
+    "semantic_hash": "15e135960c684b5523a8835ed66ed06b"
+  },
+  "core/database/src/main/kotlin/com/ankitt/themovieshow/core/database/recentlyviewed/RecentlyViewedEntity.kt": {
+    "mtime": 1789303262.33083,
+    "seen": 1789356892.7398689,
+    "ast_hash": "332c2ded21e9bdc9288d6d6508002c29",
+    "semantic_hash": "332c2ded21e9bdc9288d6d6508002c29"
+  },
+  "core/database/src/main/kotlin/com/ankitt/themovieshow/core/database/sync/SyncStateDao.kt": {
+    "mtime": 1789303262.3355944,
+    "seen": 1789356892.7398689,
+    "ast_hash": "9322b8edcb0ee0f43102926c364ff3db",
+    "semantic_hash": "9322b8edcb0ee0f43102926c364ff3db"
+  },
+  "core/database/src/main/kotlin/com/ankitt/themovieshow/core/database/sync/SyncStateEntity.kt": {
+    "mtime": 1789050459.6672761,
+    "seen": 1789356892.7398689,
+    "ast_hash": "2d3eca9c8c9cf7c809c2982d37ccc9b7",
+    "semantic_hash": "2d3eca9c8c9cf7c809c2982d37ccc9b7"
+  },
+  "core/designsystem/build.gradle.kts": {
+    "mtime": 1789284882.553311,
+    "seen": 1789356892.7398698,
+    "ast_hash": "63a743d2cef91431a5e558e5f3392589",
+    "semantic_hash": "63a743d2cef91431a5e558e5f3392589"
+  },
+  "core/designsystem/src/main/kotlin/com/ankitt/themovieshow/core/designsystem/animation/SharedElementLocals.kt": {
+    "mtime": 1789232132.6342406,
+    "seen": 1789356892.7398698,
+    "ast_hash": "c413876b6e9ad83881767f8e240bac79",
+    "semantic_hash": "c413876b6e9ad83881767f8e240bac79"
+  },
+  "core/designsystem/src/main/kotlin/com/ankitt/themovieshow/core/designsystem/components/Chip.kt": {
+    "mtime": 1789309733.0723388,
+    "seen": 1789356892.739871,
+    "ast_hash": "91cec2aa163cee9a7f7437dfa2296753",
+    "semantic_hash": "91cec2aa163cee9a7f7437dfa2296753"
+  },
+  "core/designsystem/src/main/kotlin/com/ankitt/themovieshow/core/designsystem/components/RatingBadge.kt": {
+    "mtime": 1789227818.6297,
+    "seen": 1789356892.739871,
+    "ast_hash": "b825a6639ae7839c7a469d57792a4618",
+    "semantic_hash": "b825a6639ae7839c7a469d57792a4618"
+  },
+  "core/designsystem/src/main/kotlin/com/ankitt/themovieshow/core/designsystem/components/SyncStatusBanner.kt": {
+    "mtime": 1789303262.3707998,
+    "seen": 1789356892.739872,
+    "ast_hash": "1761f9ec2dcd1d2394adb4931f7d6c9d",
+    "semantic_hash": "1761f9ec2dcd1d2394adb4931f7d6c9d"
+  },
+  "core/designsystem/src/main/kotlin/com/ankitt/themovieshow/core/designsystem/text/RelativeTime.kt": {
+    "mtime": 1789284850.2206948,
+    "seen": 1789356892.739872,
+    "ast_hash": "5579ecfb8fd825d62afd28b452e917a7",
+    "semantic_hash": "5579ecfb8fd825d62afd28b452e917a7"
+  },
+  "core/designsystem/src/main/kotlin/com/ankitt/themovieshow/core/designsystem/text/TextClipping.kt": {
+    "mtime": 1789227172.0406215,
+    "seen": 1789356892.739873,
+    "ast_hash": "a33a3e81cd925975ae0eb6d527c686eb",
+    "semantic_hash": "a33a3e81cd925975ae0eb6d527c686eb"
+  },
+  "core/designsystem/src/main/kotlin/com/ankitt/themovieshow/core/designsystem/theme/Color.kt": {
+    "mtime": 1789222918.410731,
+    "seen": 1789356892.739873,
+    "ast_hash": "820b432ad183b4044a4870f5f9bdcb48",
+    "semantic_hash": "820b432ad183b4044a4870f5f9bdcb48"
+  },
+  "core/designsystem/src/main/kotlin/com/ankitt/themovieshow/core/designsystem/theme/Theme.kt": {
+    "mtime": 1789303262.3725505,
+    "seen": 1789356892.7398741,
+    "ast_hash": "e41351af053f7b71f140c8aa2f0ee4bc",
+    "semantic_hash": "e41351af053f7b71f140c8aa2f0ee4bc"
+  },
+  "core/designsystem/src/main/kotlin/com/ankitt/themovieshow/core/designsystem/theme/Type.kt": {
+    "mtime": 1789303262.3728147,
+    "seen": 1789356892.7398741,
+    "ast_hash": "f426a7e7c476c92f9c5cc74723bbfdf9",
+    "semantic_hash": "f426a7e7c476c92f9c5cc74723bbfdf9"
+  },
+  "core/network/build.gradle.kts": {
+    "mtime": 1789285264.3377154,
+    "seen": 1789356892.7398741,
+    "ast_hash": "eedf01f7af2df59ff38b2b975a8afbbf",
+    "semantic_hash": "eedf01f7af2df59ff38b2b975a8afbbf"
+  },
+  "core/network/src/main/kotlin/com/ankitt/themovieshow/core/network/AuthInterceptor.kt": {
+    "mtime": 1789049964.8804252,
+    "seen": 1789356892.739875,
+    "ast_hash": "79cb5609113c646dfc030819d157f2e7",
+    "semantic_hash": "79cb5609113c646dfc030819d157f2e7"
+  },
+  "core/network/src/main/kotlin/com/ankitt/themovieshow/core/network/api/TmdbApiService.kt": {
+    "mtime": 1789307713.5809412,
+    "seen": 1789356892.739875,
+    "ast_hash": "b5a90a02a497523f76ab5ce085d3aeb7",
+    "semantic_hash": "b5a90a02a497523f76ab5ce085d3aeb7"
+  },
+  "core/network/src/main/kotlin/com/ankitt/themovieshow/core/network/di/NetworkModule.kt": {
+    "mtime": 1789051303.4884884,
+    "seen": 1789356892.739876,
+    "ast_hash": "c30b7ca1567459fe75243be1e1d5a871",
+    "semantic_hash": "c30b7ca1567459fe75243be1e1d5a871"
+  },
+  "core/network/src/main/kotlin/com/ankitt/themovieshow/core/network/model/ConfigurationDto.kt": {
+    "mtime": 1789049970.7116387,
+    "seen": 1789356892.739876,
+    "ast_hash": "30723772794f5dc26300a54cc97bde69",
+    "semantic_hash": "30723772794f5dc26300a54cc97bde69"
+  },
+  "core/network/src/main/kotlin/com/ankitt/themovieshow/core/network/model/GenreDto.kt": {
+    "mtime": 1789221528.5686827,
+    "seen": 1789356892.7398772,
+    "ast_hash": "012d08d965f2aa46c4b08acf4531b320",
+    "semantic_hash": "012d08d965f2aa46c4b08acf4531b320"
+  },
+  "core/network/src/main/kotlin/com/ankitt/themovieshow/core/network/model/MovieDetailDto.kt": {
+    "mtime": 1789233788.0197685,
+    "seen": 1789356892.7398772,
+    "ast_hash": "2f608f78a7a7cb984d2da9cf7eb0aca1",
+    "semantic_hash": "2f608f78a7a7cb984d2da9cf7eb0aca1"
+  },
+  "core/network/src/main/kotlin/com/ankitt/themovieshow/core/network/model/MovieDto.kt": {
+    "mtime": 1789221525.104778,
+    "seen": 1789356892.739878,
+    "ast_hash": "6251076bc9ed29b7f3e3e74796c83d0a",
+    "semantic_hash": "6251076bc9ed29b7f3e3e74796c83d0a"
+  },
+  "core/network/src/main/kotlin/com/ankitt/themovieshow/core/network/model/PersonDetailDto.kt": {
+    "mtime": 1789307709.34824,
+    "seen": 1789356892.739878,
+    "ast_hash": "d99e6fdc50be6f72a3352f73d4b440d2",
+    "semantic_hash": "d99e6fdc50be6f72a3352f73d4b440d2"
+  },
+  "core/network/src/test/kotlin/com/ankitt/themovieshow/core/network/TmdbApiServiceTest.kt": {
+    "mtime": 1789303262.416606,
+    "seen": 1789356892.739879,
+    "ast_hash": "f305e696d2064250f4364f556f65b4d3",
+    "semantic_hash": "f305e696d2064250f4364f556f65b4d3"
+  },
+  "core/sync/build.gradle.kts": {
+    "mtime": 1789283543.324392,
+    "seen": 1789356892.739879,
+    "ast_hash": "7b58527b3f59c976fe71ce04a1884814",
+    "semantic_hash": "7b58527b3f59c976fe71ce04a1884814"
+  },
+  "core/sync/src/main/kotlin/com/ankitt/themovieshow/core/sync/DataRefreshWorker.kt": {
+    "mtime": 1789284586.4151196,
+    "seen": 1789356892.739879,
+    "ast_hash": "1c22e7e045c84a83d40c995420c841ab",
+    "semantic_hash": "1c22e7e045c84a83d40c995420c841ab"
+  },
+  "core/sync/src/main/kotlin/com/ankitt/themovieshow/core/sync/SyncInitializer.kt": {
+    "mtime": 1789284601.530135,
+    "seen": 1789356892.7398798,
+    "ast_hash": "4e36b7fea2ce848c27e6de05b6cb7e05",
+    "semantic_hash": "4e36b7fea2ce848c27e6de05b6cb7e05"
+  },
+  "core/sync/src/main/kotlin/com/ankitt/themovieshow/core/sync/SyncScheduler.kt": {
+    "mtime": 1789303262.4872375,
+    "seen": 1789356892.7398798,
+    "ast_hash": "40bac3b912d448b051d777fca7dd144b",
+    "semantic_hash": "40bac3b912d448b051d777fca7dd144b"
+  },
+  "core/sync/src/main/kotlin/com/ankitt/themovieshow/core/sync/SyncWorker.kt": {
+    "mtime": 1789283558.2450418,
+    "seen": 1789356892.739881,
+    "ast_hash": "49345443f39428d6e0a09d0a9bb26414",
+    "semantic_hash": "49345443f39428d6e0a09d0a9bb26414"
+  },
+  "feature/bookmarks/build.gradle.kts": {
+    "mtime": 1789282106.5277717,
+    "seen": 1789356892.739881,
+    "ast_hash": "1a8339da15814257f3e0441d15a5d2d4",
+    "semantic_hash": "1a8339da15814257f3e0441d15a5d2d4"
+  },
+  "feature/bookmarks/src/main/kotlin/com/ankitt/themovieshow/feature/bookmarks/BookmarksScreen.kt": {
+    "mtime": 1789303262.7461169,
+    "seen": 1789356892.739882,
+    "ast_hash": "f9755b800fb9fa341983156df3adc3a7",
+    "semantic_hash": "f9755b800fb9fa341983156df3adc3a7"
+  },
+  "feature/bookmarks/src/main/kotlin/com/ankitt/themovieshow/feature/bookmarks/BookmarksUiState.kt": {
+    "mtime": 1789282113.6491187,
+    "seen": 1789356892.739882,
+    "ast_hash": "919cea0c5ba8cceb354a1920cd5c3a28",
+    "semantic_hash": "919cea0c5ba8cceb354a1920cd5c3a28"
+  },
+  "feature/bookmarks/src/main/kotlin/com/ankitt/themovieshow/feature/bookmarks/BookmarksViewModel.kt": {
+    "mtime": 1789303262.7456279,
+    "seen": 1789356892.739883,
+    "ast_hash": "f3c08c04b5015f74cbbbb1791400873e",
+    "semantic_hash": "f3c08c04b5015f74cbbbb1791400873e"
+  },
+  "feature/bookmarks/src/main/kotlin/com/ankitt/themovieshow/feature/bookmarks/navigation/BookmarksRoute.kt": {
+    "mtime": 1789282145.0301337,
+    "seen": 1789356892.739883,
+    "ast_hash": "c9d0dca23b7a67360f68fe6bcb23df85",
+    "semantic_hash": "c9d0dca23b7a67360f68fe6bcb23df85"
+  },
+  "feature/home/build.gradle.kts": {
+    "mtime": 1789222719.5618966,
+    "seen": 1789356892.7398841,
+    "ast_hash": "57006999fc5283ca6f3678ecee5102db",
+    "semantic_hash": "57006999fc5283ca6f3678ecee5102db"
+  },
+  "feature/home/src/main/kotlin/com/ankitt/themovieshow/feature/home/HomeScreen.kt": {
+    "mtime": 1789310061.6408448,
+    "seen": 1789356892.7398841,
+    "ast_hash": "091aab1c572fbc4b131aec89d52b83e5",
+    "semantic_hash": "091aab1c572fbc4b131aec89d52b83e5"
+  },
+  "feature/home/src/main/kotlin/com/ankitt/themovieshow/feature/home/HomeUiState.kt": {
+    "mtime": 1789284886.6172473,
+    "seen": 1789356892.739885,
+    "ast_hash": "3285115034fc25b04948ceba84a669b6",
+    "semantic_hash": "3285115034fc25b04948ceba84a669b6"
+  },
+  "feature/home/src/main/kotlin/com/ankitt/themovieshow/feature/home/HomeViewModel.kt": {
+    "mtime": 1789303262.6345344,
+    "seen": 1789356892.739886,
+    "ast_hash": "c16c6983c1a4f3440edba3ff74090f44",
+    "semantic_hash": "c16c6983c1a4f3440edba3ff74090f44"
+  },
+  "feature/home/src/main/kotlin/com/ankitt/themovieshow/feature/home/components/GenreChipRow.kt": {
+    "mtime": 1789231005.2094576,
+    "seen": 1789356892.739886,
+    "ast_hash": "ac2a6f64207b04ad1f8104ee0b2c9f35",
+    "semantic_hash": "ac2a6f64207b04ad1f8104ee0b2c9f35"
+  },
+  "feature/home/src/main/kotlin/com/ankitt/themovieshow/feature/home/components/HeroCarousel.kt": {
+    "mtime": 1789308889.22542,
+    "seen": 1789356892.739887,
+    "ast_hash": "e9ada2322cb8d46fcf1224d3db4d3294",
+    "semantic_hash": "e9ada2322cb8d46fcf1224d3db4d3294"
+  },
+  "feature/home/src/main/kotlin/com/ankitt/themovieshow/feature/home/components/HomeTopAppBar.kt": {
+    "mtime": 1789303262.6360178,
+    "seen": 1789356892.739887,
+    "ast_hash": "6068b5a31aebcdff6e54678e08821c93",
+    "semantic_hash": "6068b5a31aebcdff6e54678e08821c93"
+  },
+  "feature/home/src/main/kotlin/com/ankitt/themovieshow/feature/home/components/MovieCard.kt": {
+    "mtime": 1789303262.636296,
+    "seen": 1789356892.7398882,
+    "ast_hash": "a6d2da2911460a5167a82ffd41ac2a98",
+    "semantic_hash": "a6d2da2911460a5167a82ffd41ac2a98"
+  },
+  "feature/home/src/main/kotlin/com/ankitt/themovieshow/feature/home/components/MovieSection.kt": {
+    "mtime": 1789303262.6367898,
+    "seen": 1789356892.7398882,
+    "ast_hash": "42602a65bba3db2c489a66091d7025df",
+    "semantic_hash": "42602a65bba3db2c489a66091d7025df"
+  },
+  "feature/home/src/main/kotlin/com/ankitt/themovieshow/feature/home/navigation/HomeRoute.kt": {
+    "mtime": 1789283088.6137214,
+    "seen": 1789356892.739889,
+    "ast_hash": "30d9b96b876e5934fa6867b6f4311a8d",
+    "semantic_hash": "30d9b96b876e5934fa6867b6f4311a8d"
+  },
+  "feature/moviedetail/build.gradle.kts": {
+    "mtime": 1789235072.6851082,
+    "seen": 1789356892.739889,
+    "ast_hash": "18a9e0ac8f56ce6f20377cd15e7cfc14",
+    "semantic_hash": "18a9e0ac8f56ce6f20377cd15e7cfc14"
+  },
+  "feature/moviedetail/src/main/kotlin/com/ankitt/themovieshow/feature/moviedetail/MovieDetailScreen.kt": {
+    "mtime": 1789307879.214729,
+    "seen": 1789356892.7398899,
+    "ast_hash": "640a248423db80198c44a8fa0908e5b7",
+    "semantic_hash": "640a248423db80198c44a8fa0908e5b7"
+  },
+  "feature/moviedetail/src/main/kotlin/com/ankitt/themovieshow/feature/moviedetail/MovieDetailUiState.kt": {
+    "mtime": 1789284991.3908124,
+    "seen": 1789356892.7398899,
+    "ast_hash": "756d193cfac29b28f227eaeddb40fcbb",
+    "semantic_hash": "756d193cfac29b28f227eaeddb40fcbb"
+  },
+  "feature/moviedetail/src/main/kotlin/com/ankitt/themovieshow/feature/moviedetail/MovieDetailViewModel.kt": {
+    "mtime": 1789303262.784958,
+    "seen": 1789356892.739891,
+    "ast_hash": "782ad156491088045634e7a241e3893c",
+    "semantic_hash": "782ad156491088045634e7a241e3893c"
+  },
+  "feature/moviedetail/src/main/kotlin/com/ankitt/themovieshow/feature/moviedetail/PersonBioSheet.kt": {
+    "mtime": 1789309200.1918902,
+    "seen": 1789356892.739891,
+    "ast_hash": "685b0e3c790c9bae34515073b809c5b8",
+    "semantic_hash": "685b0e3c790c9bae34515073b809c5b8"
+  },
+  "feature/moviedetail/src/main/kotlin/com/ankitt/themovieshow/feature/moviedetail/PersonDetailUiState.kt": {
+    "mtime": 1789307742.822378,
+    "seen": 1789356892.739891,
+    "ast_hash": "9d5f945c7ea6ac2b6bedaaac9d79265d",
+    "semantic_hash": "9d5f945c7ea6ac2b6bedaaac9d79265d"
+  },
+  "feature/moviedetail/src/main/kotlin/com/ankitt/themovieshow/feature/moviedetail/PersonDetailViewModel.kt": {
+    "mtime": 1789307752.147388,
+    "seen": 1789356892.739892,
+    "ast_hash": "3929bc69c5c4dd313747acc329759a8f",
+    "semantic_hash": "3929bc69c5c4dd313747acc329759a8f"
+  },
+  "feature/moviedetail/src/main/kotlin/com/ankitt/themovieshow/feature/moviedetail/navigation/MovieDetailRoute.kt": {
+    "mtime": 1789231215.2056334,
+    "seen": 1789356892.739892,
+    "ast_hash": "6cd892590e1afdb7b8c4c31b1e94d0b0",
+    "semantic_hash": "6cd892590e1afdb7b8c4c31b1e94d0b0"
+  },
+  "feature/movielist/build.gradle.kts": {
+    "mtime": 1789225455.4612715,
+    "seen": 1789356892.739893,
+    "ast_hash": "1633db3cc2a4e3975bff6df69ef2bac5",
+    "semantic_hash": "1633db3cc2a4e3975bff6df69ef2bac5"
+  },
+  "feature/movielist/src/main/kotlin/com/ankitt/themovieshow/feature/movielist/MovieListScreen.kt": {
+    "mtime": 1789303262.822203,
+    "seen": 1789356892.739893,
+    "ast_hash": "a8b3b395eb1462b6dfa8891171d895a8",
+    "semantic_hash": "a8b3b395eb1462b6dfa8891171d895a8"
+  },
+  "feature/movielist/src/main/kotlin/com/ankitt/themovieshow/feature/movielist/MovieListUiState.kt": {
+    "mtime": 1789227919.55299,
+    "seen": 1789356892.739894,
+    "ast_hash": "68086ad284752abd11323f1e456c3945",
+    "semantic_hash": "68086ad284752abd11323f1e456c3945"
+  },
+  "feature/movielist/src/main/kotlin/com/ankitt/themovieshow/feature/movielist/MovieListViewModel.kt": {
+    "mtime": 1789303262.8230982,
+    "seen": 1789356892.739894,
+    "ast_hash": "eda9ff3e45d7d7e7d7980f2179235f50",
+    "semantic_hash": "eda9ff3e45d7d7e7d7980f2179235f50"
+  },
+  "feature/movielist/src/main/kotlin/com/ankitt/themovieshow/feature/movielist/navigation/MovieListRoute.kt": {
+    "mtime": 1789231465.4389868,
+    "seen": 1789356892.739895,
+    "ast_hash": "71f0ef91473c5486575445d997b3a0ee",
+    "semantic_hash": "71f0ef91473c5486575445d997b3a0ee"
+  },
+  "feature/recentlyviewed/build.gradle.kts": {
+    "mtime": 1789283036.2812548,
+    "seen": 1789356892.739895,
+    "ast_hash": "27071846c1ce1a767f9f842822f0e2a2",
+    "semantic_hash": "27071846c1ce1a767f9f842822f0e2a2"
+  },
+  "feature/recentlyviewed/src/main/kotlin/com/ankitt/themovieshow/feature/recentlyviewed/RecentlyViewedScreen.kt": {
+    "mtime": 1789303262.6715846,
+    "seen": 1789356892.739896,
+    "ast_hash": "c17f832d7b62e14c355da07a9c7e9720",
+    "semantic_hash": "c17f832d7b62e14c355da07a9c7e9720"
+  },
+  "feature/recentlyviewed/src/main/kotlin/com/ankitt/themovieshow/feature/recentlyviewed/RecentlyViewedUiState.kt": {
+    "mtime": 1789283038.738673,
+    "seen": 1789356892.739896,
+    "ast_hash": "1c77f19540f30c26ab080a848f394945",
+    "semantic_hash": "1c77f19540f30c26ab080a848f394945"
+  },
+  "feature/recentlyviewed/src/main/kotlin/com/ankitt/themovieshow/feature/recentlyviewed/RecentlyViewedViewModel.kt": {
+    "mtime": 1789303262.6712155,
+    "seen": 1789356892.739897,
+    "ast_hash": "5c3329cef2e4347d143b757d22872a9a",
+    "semantic_hash": "5c3329cef2e4347d143b757d22872a9a"
+  },
+  "feature/recentlyviewed/src/main/kotlin/com/ankitt/themovieshow/feature/recentlyviewed/navigation/RecentlyViewedRoute.kt": {
+    "mtime": 1789283064.9024415,
+    "seen": 1789356892.739897,
+    "ast_hash": "ffb03610c402685310cb41d348b94426",
+    "semantic_hash": "ffb03610c402685310cb41d348b94426"
+  },
+  "feature/search/build.gradle.kts": {
+    "mtime": 1789223894.642284,
+    "seen": 1789356892.7398982,
+    "ast_hash": "cecdb9364f8cb19295034c3651c014a1",
+    "semantic_hash": "cecdb9364f8cb19295034c3651c014a1"
+  },
+  "feature/search/src/main/kotlin/com/ankitt/themovieshow/feature/search/SearchScreen.kt": {
+    "mtime": 1789303262.7103927,
+    "seen": 1789356892.7398982,
+    "ast_hash": "bf1b490d6d5e6d567fd786abb02f4b35",
+    "semantic_hash": "bf1b490d6d5e6d567fd786abb02f4b35"
+  },
+  "feature/search/src/main/kotlin/com/ankitt/themovieshow/feature/search/SearchUiState.kt": {
+    "mtime": 1789227977.1440852,
+    "seen": 1789356892.739899,
+    "ast_hash": "77df34adc25bba4528d9f7b8e9e9849f",
+    "semantic_hash": "77df34adc25bba4528d9f7b8e9e9849f"
+  },
+  "feature/search/src/main/kotlin/com/ankitt/themovieshow/feature/search/SearchViewModel.kt": {
+    "mtime": 1789303262.7097425,
+    "seen": 1789356892.739899,
+    "ast_hash": "f7c0fd91fece370f1aa246b4c09899d9",
+    "semantic_hash": "f7c0fd91fece370f1aa246b4c09899d9"
+  },
+  "feature/search/src/main/kotlin/com/ankitt/themovieshow/feature/search/components/SearchResultRow.kt": {
+    "mtime": 1789303262.7113972,
+    "seen": 1789356892.7398999,
+    "ast_hash": "fca61daf967357a34008f4c6a574b508",
+    "semantic_hash": "fca61daf967357a34008f4c6a574b508"
+  },
+  "feature/search/src/main/kotlin/com/ankitt/themovieshow/feature/search/navigation/SearchRoute.kt": {
+    "mtime": 1789231380.8230395,
+    "seen": 1789356892.7398999,
+    "ast_hash": "f28587dc4fd787afae3fe0e4d2ed04ed",
+    "semantic_hash": "f28587dc4fd787afae3fe0e4d2ed04ed"
+  },
+  "gradlew": {
+    "mtime": 1789048599.993153,
+    "seen": 1789356892.7399008,
+    "ast_hash": "266606e78242737ef3da02a80ea0564d",
+    "semantic_hash": "266606e78242737ef3da02a80ea0564d"
+  },
+  "settings.gradle.kts": {
+    "mtime": 1789283537.7491217,
+    "seen": 1789356892.7399008,
+    "ast_hash": "73c7522a983e929a945eb8bc6f2f1259",
+    "semantic_hash": "73c7522a983e929a945eb8bc6f2f1259"
+  },
+  ".github/workflows/ci.yml": {
+    "mtime": 1789288216.322453,
+    "seen": 1789356892.739902,
+    "ast_hash": "16b8951a4bf4f915a5263d320631030d",
+    "semantic_hash": "16b8951a4bf4f915a5263d320631030d"
+  },
+  "README.md": {
+    "mtime": 1789298321.8039832,
+    "seen": 1789356892.739902,
+    "ast_hash": "212f85e9113a668c682f667d7eab2652",
+    "semantic_hash": "212f85e9113a668c682f667d7eab2652"
+  },
+  "app/src/main/ic_app-playstore.png": {
+    "mtime": 1789235690.7181656,
+    "seen": 1789356892.739902,
+    "ast_hash": "c2bc989fccfd2444da712a491f4c9705",
+    "semantic_hash": "c2bc989fccfd2444da712a491f4c9705"
+  },
+  "app/src/main/res/mipmap-hdpi/ic_app.webp": {
+    "mtime": 1789235690.7761936,
+    "seen": 1789356892.739903,
+    "ast_hash": "2c41691e9b3279a39ea94f5a60ed9509",
+    "semantic_hash": "2c41691e9b3279a39ea94f5a60ed9509"
+  },
+  "app/src/main/res/mipmap-hdpi/ic_app_foreground.webp": {
+    "mtime": 1789235690.6765747,
+    "seen": 1789356892.739903,
+    "ast_hash": "5f5b8cebd348eeff9b8c0f08e3b8ce95",
+    "semantic_hash": "5f5b8cebd348eeff9b8c0f08e3b8ce95"
+  },
+  "app/src/main/res/mipmap-hdpi/ic_app_round.webp": {
+    "mtime": 1789235690.735948,
+    "seen": 1789356892.739904,
+    "ast_hash": "53961bd3cfdad8678c38af4df9ade9e6",
+    "semantic_hash": "53961bd3cfdad8678c38af4df9ade9e6"
+  },
+  "app/src/main/res/mipmap-hdpi/ic_launcher.webp": {
+    "mtime": 1789048600.6507149,
+    "seen": 1789356892.739905,
+    "ast_hash": "39d9bb21eb48f128a71c3f01ad3cd427",
+    "semantic_hash": "39d9bb21eb48f128a71c3f01ad3cd427"
+  },
+  "app/src/main/res/mipmap-hdpi/ic_launcher_round.webp": {
+    "mtime": 1789048600.652505,
+    "seen": 1789356892.739905,
+    "ast_hash": "70d6f58af3c76ee221c829b1ce9daa04",
+    "semantic_hash": "70d6f58af3c76ee221c829b1ce9daa04"
+  },
+  "app/src/main/res/mipmap-mdpi/ic_app.webp": {
+    "mtime": 1789235690.6526563,
+    "seen": 1789356892.739906,
+    "ast_hash": "6d6aa3da0704fe00fa198af24d658f63",
+    "semantic_hash": "6d6aa3da0704fe00fa198af24d658f63"
+  },
+  "app/src/main/res/mipmap-mdpi/ic_app_foreground.webp": {
+    "mtime": 1789235690.7263649,
+    "seen": 1789356892.739906,
+    "ast_hash": "f2b74c2ea9400f0a3ce23b7780dd498f",
+    "semantic_hash": "f2b74c2ea9400f0a3ce23b7780dd498f"
+  },
+  "app/src/main/res/mipmap-mdpi/ic_app_round.webp": {
+    "mtime": 1789235690.7800777,
+    "seen": 1789356892.739907,
+    "ast_hash": "f5d26e80a0b4a265595054a77228fb8a",
+    "semantic_hash": "f5d26e80a0b4a265595054a77228fb8a"
+  },
+  "app/src/main/res/mipmap-mdpi/ic_launcher.webp": {
+    "mtime": 1789048600.6556213,
+    "seen": 1789356892.739907,
+    "ast_hash": "d2acce71c7b46e5e9540d23a9f7b2166",
+    "semantic_hash": "d2acce71c7b46e5e9540d23a9f7b2166"
+  },
+  "app/src/main/res/mipmap-mdpi/ic_launcher_round.webp": {
+    "mtime": 1789048600.6572638,
+    "seen": 1789356892.739908,
+    "ast_hash": "6376acb48f96a855ee95c113cd7fd616",
+    "semantic_hash": "6376acb48f96a855ee95c113cd7fd616"
+  },
+  "app/src/main/res/mipmap-xhdpi/ic_app.webp": {
+    "mtime": 1789235690.769274,
+    "seen": 1789356892.739908,
+    "ast_hash": "9ba872569c71c76d4b6c89950446f736",
+    "semantic_hash": "9ba872569c71c76d4b6c89950446f736"
+  },
+  "app/src/main/res/mipmap-xhdpi/ic_app_foreground.webp": {
+    "mtime": 1789235690.6875615,
+    "seen": 1789356892.7399092,
+    "ast_hash": "9a9ba0a966b398d012be49b830c759a6",
+    "semantic_hash": "9a9ba0a966b398d012be49b830c759a6"
+  },
+  "app/src/main/res/mipmap-xhdpi/ic_app_round.webp": {
+    "mtime": 1789235690.6676333,
+    "seen": 1789356892.7399092,
+    "ast_hash": "76e5f49f8ddaaf02e121bb373c5b8db8",
+    "semantic_hash": "76e5f49f8ddaaf02e121bb373c5b8db8"
+  },
+  "app/src/main/res/mipmap-xhdpi/ic_launcher.webp": {
+    "mtime": 1789048600.6603348,
+    "seen": 1789356892.73991,
+    "ast_hash": "bd087d80b70bec05a43c745f29dc3ffc",
+    "semantic_hash": "bd087d80b70bec05a43c745f29dc3ffc"
+  },
+  "app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp": {
+    "mtime": 1789048600.6621046,
+    "seen": 1789356892.73991,
+    "ast_hash": "7479edd56ab712609f030054bffd7263",
+    "semantic_hash": "7479edd56ab712609f030054bffd7263"
+  },
+  "app/src/main/res/mipmap-xxhdpi/ic_app.webp": {
+    "mtime": 1789235690.8655417,
+    "seen": 1789356892.7399108,
+    "ast_hash": "21f9ab21195789ea7efa86d3fb4f14ca",
+    "semantic_hash": "21f9ab21195789ea7efa86d3fb4f14ca"
+  },
+  "app/src/main/res/mipmap-xxhdpi/ic_app_foreground.webp": {
+    "mtime": 1789235690.6168158,
+    "seen": 1789356892.7399108,
+    "ast_hash": "a036d724759c795d1c394edfb96af703",
+    "semantic_hash": "a036d724759c795d1c394edfb96af703"
+  },
+  "app/src/main/res/mipmap-xxhdpi/ic_app_round.webp": {
+    "mtime": 1789235690.7566974,
+    "seen": 1789356892.739912,
+    "ast_hash": "6dd76d9c2b7ed45b53e96abe9d41d988",
+    "semantic_hash": "6dd76d9c2b7ed45b53e96abe9d41d988"
+  },
+  "app/src/main/res/mipmap-xxhdpi/ic_launcher.webp": {
+    "mtime": 1789048600.6648853,
+    "seen": 1789356892.739912,
+    "ast_hash": "ea180e8d1a2e8300cc998b987266b736",
+    "semantic_hash": "ea180e8d1a2e8300cc998b987266b736"
+  },
+  "app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp": {
+    "mtime": 1789048600.6670644,
+    "seen": 1789356892.739912,
+    "ast_hash": "947842742b29eeda80ee0805e1600366",
+    "semantic_hash": "947842742b29eeda80ee0805e1600366"
+  },
+  "app/src/main/res/mipmap-xxxhdpi/ic_app.webp": {
+    "mtime": 1789235690.6471088,
+    "seen": 1789356892.739913,
+    "ast_hash": "317cd11a1f5604832143e785f1c50638",
+    "semantic_hash": "317cd11a1f5604832143e785f1c50638"
+  },
+  "app/src/main/res/mipmap-xxxhdpi/ic_app_foreground.webp": {
+    "mtime": 1789235690.8452272,
+    "seen": 1789356892.739913,
+    "ast_hash": "ff7fb9b75bdf68b57296f8bc281f095f",
+    "semantic_hash": "ff7fb9b75bdf68b57296f8bc281f095f"
+  },
+  "app/src/main/res/mipmap-xxxhdpi/ic_app_round.webp": {
+    "mtime": 1789235690.5992424,
+    "seen": 1789356892.739914,
+    "ast_hash": "5cb2a30a18dbb3cb1ee60ed3679fea43",
+    "semantic_hash": "5cb2a30a18dbb3cb1ee60ed3679fea43"
+  },
+  "app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp": {
+    "mtime": 1789048600.6700442,
+    "seen": 1789356892.739914,
+    "ast_hash": "54ab624970c86c2146e76b93f27586f7",
+    "semantic_hash": "54ab624970c86c2146e76b93f27586f7"
+  },
+  "app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp": {
+    "mtime": 1789048600.6717722,
+    "seen": 1789356892.739915,
+    "ast_hash": "9ee591be72fb336861a8044086054daa",
+    "semantic_hash": "9ee591be72fb336861a8044086054daa"
+  },
+  "feature/search/src/main/res/drawable/directors_chair.gif": {
+    "mtime": 1789229340.2248654,
+    "seen": 1789356892.739915,
+    "ast_hash": "c7aa468d516c74ed8bd8c1338018520b",
+    "semantic_hash": "c7aa468d516c74ed8bd8c1338018520b"
+  }
+}

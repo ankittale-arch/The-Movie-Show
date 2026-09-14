@@ -36,7 +36,7 @@ fun BookmarksScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun BookmarksContent(
+internal fun BookmarksContent(
     uiState: BookmarksUiState,
     onBackClick: () -> Unit,
     onMovieClick: (Int) -> Unit = {},

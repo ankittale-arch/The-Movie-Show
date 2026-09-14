@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -54,7 +55,7 @@ fun MovieDetailScreen(
 }
 
 @Composable
-private fun MovieDetailContent(
+internal fun MovieDetailContent(
     uiState: MovieDetailUiState,
     onBackClick: () -> Unit,
     onFavoriteClick: () -> Unit = {},
@@ -70,7 +71,11 @@ private fun MovieDetailContent(
             val errorMessage = uiState.errorMessage
             when {
                 uiState.isLoading && movie == null ->
-                    CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .testTag("movieDetailLoadingIndicator"),
+                    )
 
                 errorMessage != null && movie == null -> Text(
                     text = errorMessage,

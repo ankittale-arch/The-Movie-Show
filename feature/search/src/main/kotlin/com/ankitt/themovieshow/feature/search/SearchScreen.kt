@@ -17,6 +17,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -43,7 +44,7 @@ fun SearchScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun SearchContent(
+internal fun SearchContent(
     uiState: SearchUiState,
     onQueryChanged: (String) -> Unit,
     onBackClick: () -> Unit,
@@ -117,7 +118,11 @@ private fun SearchContent(
                     )
                 }
 
-                uiState.isSearching -> CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+                uiState.isSearching -> CircularProgressIndicator(
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .testTag("searchLoadingIndicator"),
+                )
 
                 errorMessage != null -> Text(
                     text = errorMessage,

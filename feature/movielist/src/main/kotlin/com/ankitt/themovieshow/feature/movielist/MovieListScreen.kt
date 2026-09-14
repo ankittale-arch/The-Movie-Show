@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -56,7 +57,7 @@ fun MovieListScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun MovieListContent(
+internal fun MovieListContent(
     title: String,
     uiState: MovieListUiState,
     onBackClick: () -> Unit,
@@ -84,7 +85,11 @@ private fun MovieListContent(
             val errorMessage = uiState.errorMessage
             when {
                 uiState.isLoading && uiState.movies.isEmpty() ->
-                    CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .testTag("movieListLoadingIndicator"),
+                    )
 
                 errorMessage != null && uiState.movies.isEmpty() -> Text(
                     text = errorMessage,
