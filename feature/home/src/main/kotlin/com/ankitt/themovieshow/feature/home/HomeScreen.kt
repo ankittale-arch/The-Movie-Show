@@ -8,6 +8,7 @@ import androidx.compose.material3.*
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -52,102 +53,111 @@ internal fun HomeContent(
 ) {
     Scaffold(
         contentWindowInsets = WindowInsets.safeDrawing,
-        topBar = {
-            HomeTopAppBar(
-                onSearchClick = onSearchClick,
-                onBookmarksClick = onBookmarksClick,
-                onRecentlyViewedClick = onRecentlyViewedClick,
-            )
-        },
+        topBar = { HomeTopAppBar() },
     ) { innerPadding ->
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding),
         ) {
-            SyncStatusBanner(
-                isOffline = uiState.isOffline,
-                isStale = uiState.isStale,
-                lastSyncedAtEpochMillis = uiState.lastSyncedAtEpochMillis,
-            )
-            PullToRefreshBox(
-                isRefreshing = uiState.isRefreshing,
-                onRefresh = onRefresh,
-                modifier = Modifier.fillMaxSize(),
-            ) {
-                LazyColumn(
+            Column(modifier = Modifier.fillMaxSize()) {
+                SyncStatusBanner(
+                    isOffline = uiState.isOffline,
+                    isStale = uiState.isStale,
+                    lastSyncedAtEpochMillis = uiState.lastSyncedAtEpochMillis,
+                )
+                PullToRefreshBox(
+                    isRefreshing = uiState.isRefreshing,
+                    onRefresh = onRefresh,
                     modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.spacedBy(24.dp),
                 ) {
-                    item {
-                        HeroCarousel(
-                            movies = uiState.heroMovies,
-                            modifier = Modifier.padding(horizontal = 16.dp),
-                            onMovieClick = onMovieClick,
-                        )
-                    }
-                    item {
-                        Column {
-                            Text(
-                                text = "Genres",
-                                style = MaterialTheme.typography.titleMedium,
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = PaddingValues(bottom = 96.dp),
+                        verticalArrangement = Arrangement.spacedBy(24.dp),
+                    ) {
+                        item {
+                            HeroCarousel(
+                                movies = uiState.heroMovies,
                                 modifier = Modifier.padding(horizontal = 16.dp),
+                                onMovieClick = onMovieClick,
                             )
-                            Column(modifier = Modifier.padding(top = 8.dp)) {
-                                GenreChipRow(
-                                    genres = uiState.genres,
-                                    onGenreClick = { genre ->
-                                        onMovieListClick(HomeListKeys.genre(genre.id), genre.name)
-                                    },
+                        }
+                        item {
+                            Column {
+                                Text(
+                                    text = "Genres",
+                                    style = MaterialTheme.typography.titleMedium,
+                                    modifier = Modifier.padding(horizontal = 16.dp),
                                 )
+                                Column(modifier = Modifier.padding(top = 8.dp)) {
+                                    GenreChipRow(
+                                        genres = uiState.genres,
+                                        onGenreClick = { genre ->
+                                            onMovieListClick(HomeListKeys.genre(genre.id), genre.name)
+                                        },
+                                    )
+                                }
                             }
                         }
-                    }
-                    item {
-                        MovieSection(
-                            title = "Now Playing",
-                            movies = uiState.nowPlaying,
-                            variant = MovieCardVariant.PosterOnly,
-                            onMoreClick = { onMovieListClick(HomeListKeys.NOW_PLAYING, "Now Playing") },
-                            onMovieClick = onMovieClick,
-                        )
-                    }
-                    item {
-                        MovieSection(
-                            title = "Popular Movies",
-                            movies = uiState.popular,
-                            variant = MovieCardVariant.PosterOnly,
-                            leadingIcon = {
-                                Icon(
-                                    imageVector = Icons.Filled.Info,
-                                    contentDescription = null,
-                                    modifier = Modifier.height(16.dp),
-                                )
-                            },
-                            onMoreClick = { onMovieListClick(HomeListKeys.POPULAR, "Popular Movies") },
-                            onMovieClick = onMovieClick,
-                        )
-                    }
-                    item {
-                        MovieSection(
-                            title = "Discover Movies",
-                            movies = uiState.discover,
-                            variant = MovieCardVariant.LandscapeOverlay,
-                            onMoreClick = { onMovieListClick(HomeListKeys.DISCOVER, "Discover Movies") },
-                            onMovieClick = onMovieClick,
-                        )
-                    }
-                    item {
-                        MovieSection(
-                            title = "Upcoming Movies",
-                            movies = uiState.upcoming,
-                            variant = MovieCardVariant.PosterWithCaption,
-                            onMoreClick = { onMovieListClick(HomeListKeys.UPCOMING, "Upcoming Movies") },
-                            onMovieClick = onMovieClick,
-                        )
+                        item {
+                            MovieSection(
+                                title = "Now Playing",
+                                movies = uiState.nowPlaying,
+                                variant = MovieCardVariant.PosterOnly,
+                                onMoreClick = { onMovieListClick(HomeListKeys.NOW_PLAYING, "Now Playing") },
+                                onMovieClick = onMovieClick,
+                            )
+                        }
+                        item {
+                            MovieSection(
+                                title = "Popular Movies",
+                                movies = uiState.popular,
+                                variant = MovieCardVariant.PosterOnly,
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Filled.Info,
+                                        contentDescription = null,
+                                        modifier = Modifier.height(16.dp),
+                                    )
+                                },
+                                onMoreClick = { onMovieListClick(HomeListKeys.POPULAR, "Popular Movies") },
+                                onMovieClick = onMovieClick,
+                            )
+                        }
+                        item {
+                            MovieSection(
+                                title = "Discover Movies",
+                                movies = uiState.discover,
+                                variant = MovieCardVariant.LandscapeOverlay,
+                                onMoreClick = { onMovieListClick(HomeListKeys.DISCOVER, "Discover Movies") },
+                                onMovieClick = onMovieClick,
+                            )
+                        }
+                        item {
+                            MovieSection(
+                                title = "Upcoming Movies",
+                                movies = uiState.upcoming,
+                                variant = MovieCardVariant.PosterWithCaption,
+                                onMoreClick = { onMovieListClick(HomeListKeys.UPCOMING, "Upcoming Movies") },
+                                onMovieClick = onMovieClick,
+                            )
+                        }
                     }
                 }
             }
+            HomeBottomNavBar(
+                selectedTab = HomeBottomNavTab.Home,
+                onTabSelected = { tab ->
+                    when (tab) {
+                        HomeBottomNavTab.Home -> Unit
+                        HomeBottomNavTab.Search -> onSearchClick()
+                        HomeBottomNavTab.Bookmarks -> onBookmarksClick()
+                        HomeBottomNavTab.Recent -> onRecentlyViewedClick()
+                    }
+                },
+                modifier = Modifier.align(Alignment.BottomCenter),
+            )
         }
     }
 }
