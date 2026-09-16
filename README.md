@@ -55,3 +55,24 @@ Multi-module Android project using Kotlin, Jetpack Compose, and Hilt for depende
 ```bash
 ./gradlew :app:assembleDebug
 ```
+
+<table align="center">
+  <!-- Row 1: First 3 Images -->
+  <tr>
+    <td><img src="./images_1/Screenshot_1789538048.png" width="250" alt="Screen 1"></td>
+    <td><img src="./images_1/Screenshot_1789538072.png" width="250" alt="Screen 2"></td>
+    <td><img src="./images_1/Screenshot_1789538077.png" width="250" alt="Screen 3"></td>
+  </tr>
+  <!-- Row 2: Next 3 Images -->
+  <tr>
+    <td><img src="./images_1/Screenshot_1789538081.png" width="250" alt="Screen 4"></td>
+    <td><img src="./images_1/Screenshot_1789538085.png" width="250" alt="Screen 5"></td>
+    <td><img src="./images_1/Screenshot_1789538097.png" width="250" alt="Screen 6"></td>
+  </tr>
+  <!-- Row 3: Centered 7th Image -->
+  <tr>
+    <td></td>
+    <td align="center"><img src="./images_1/Screenshot_1789538109.png" width="250" alt="Screen 7"></td>
+    <td></td>
+  </tr>
+</table>
