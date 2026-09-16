@@ -55,9 +55,3 @@ Multi-module Android project using Kotlin, Jetpack Compose, and Hilt for depende
 ```bash
 ./gradlew :app:assembleDebug
 ```
-
-
-
-<img width="1080" height="2424" alt="Screenshot_20260913_164739" src="https://github.com/user-attachments/assets/79d14c9d-f489-4e23-aebf-e1bff2c35aeb" />
-<img width="1080" height="2424" alt="Screenshot_20260913_164722" src="https://github.com/user-attachments/assets/0108434b-5ea0-4cbc-a66f-809a3fe404d1" />
-
