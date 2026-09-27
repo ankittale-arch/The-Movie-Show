@@ -1,9 +1,7 @@
 package com.ankitt.themovieshow.core.designsystem.animation
 
-import androidx.compose.animation.AnimatedVisibilityScope
-import androidx.compose.animation.SharedTransitionScope
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.animation.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 
 /**

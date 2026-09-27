@@ -1,7 +1,6 @@
 package com.ankitt.themovieshow.feature.moviedetail.navigation
 
-import androidx.navigation3.runtime.EntryProviderScope
-import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.runtime.*
 import com.ankitt.themovieshow.feature.moviedetail.MovieDetailScreen
 import kotlinx.serialization.Serializable
 

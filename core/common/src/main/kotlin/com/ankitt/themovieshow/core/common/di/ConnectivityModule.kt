@@ -1,9 +1,7 @@
 package com.ankitt.themovieshow.core.common.di
 
-import com.ankitt.themovieshow.core.common.network.ConnectivityObserver
-import com.ankitt.themovieshow.core.common.network.ConnectivityObserverImpl
-import dagger.Binds
-import dagger.Module
+import com.ankitt.themovieshow.core.common.network.*
+import dagger.*
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton

@@ -1,10 +1,8 @@
 package com.ankitt.themovieshow.core.network.di
 
-import com.ankitt.themovieshow.core.network.AuthInterceptor
-import com.ankitt.themovieshow.core.network.BuildConfig
+import com.ankitt.themovieshow.core.network.*
 import com.ankitt.themovieshow.core.network.api.TmdbApiService
-import dagger.Module
-import dagger.Provides
+import dagger.*
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json

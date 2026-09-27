@@ -1,15 +1,11 @@
 package com.ankitt.themovieshow.core.database
 
-import androidx.room.Database
-import androidx.room.RoomDatabase
+import androidx.room.*
 import com.ankitt.themovieshow.core.database.bookmark.*
 import com.ankitt.themovieshow.core.database.movie.*
-import com.ankitt.themovieshow.core.database.outbox.PendingOperationDao
-import com.ankitt.themovieshow.core.database.outbox.PendingOperationEntity
-import com.ankitt.themovieshow.core.database.recentlyviewed.RecentlyViewedDao
-import com.ankitt.themovieshow.core.database.recentlyviewed.RecentlyViewedEntity
-import com.ankitt.themovieshow.core.database.sync.SyncStateDao
-import com.ankitt.themovieshow.core.database.sync.SyncStateEntity
+import com.ankitt.themovieshow.core.database.outbox.*
+import com.ankitt.themovieshow.core.database.recentlyviewed.*
+import com.ankitt.themovieshow.core.database.sync.*
 
 /**
  * The single Room database for the app — the local source of truth described in the

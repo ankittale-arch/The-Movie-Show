@@ -3,11 +3,9 @@ package com.ankitt.themovieshow.di
 import android.content.Context
 import android.os.Build
 import coil3.ImageLoader
-import coil3.gif.AnimatedImageDecoder
-import coil3.gif.GifDecoder
+import coil3.gif.*
 import coil3.network.okhttp.OkHttpNetworkFetcherFactory
-import dagger.Module
-import dagger.Provides
+import dagger.*
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent

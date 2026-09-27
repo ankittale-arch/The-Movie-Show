@@ -1,7 +1,6 @@
 package com.ankitt.themovieshow.core.network.model
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import kotlinx.serialization.*
 
 /** Response of `GET person/{person_id}?append_to_response=movie_credits` — a cast member's bio and
  * filmography, tapped from a movie's cast row. */

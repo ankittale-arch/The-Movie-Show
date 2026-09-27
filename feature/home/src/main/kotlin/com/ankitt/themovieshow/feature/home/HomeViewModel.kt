@@ -1,7 +1,6 @@
 package com.ankitt.themovieshow.feature.home
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.ankitt.themovieshow.core.common.network.ConnectivityObserver
 import com.ankitt.themovieshow.core.data.*
 import com.ankitt.themovieshow.core.data.model.Movie

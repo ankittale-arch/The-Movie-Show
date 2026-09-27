@@ -1,7 +1,6 @@
 package com.ankitt.themovieshow.core.network.model
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import kotlinx.serialization.*
 
 /** Response of `GET movie/{id}?append_to_response=credits,videos` — details, cast and trailers. */
 @Serializable

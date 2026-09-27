@@ -1,7 +1,6 @@
 package com.ankitt.themovieshow.core.database.movie
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
 
 @Entity(tableName = "movie")
 data class MovieEntity(

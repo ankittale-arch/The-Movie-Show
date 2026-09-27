@@ -1,7 +1,6 @@
 package com.ankitt.themovieshow.core.database.sync
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
 
 /**
  * Last-successful-sync bookkeeping, one row per syncable resource (e.g. "trending", "popular",

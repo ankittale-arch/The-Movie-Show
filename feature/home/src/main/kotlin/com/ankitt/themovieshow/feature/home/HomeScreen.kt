@@ -6,10 +6,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.*
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.*
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.input.nestedscroll.*
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -51,6 +52,22 @@ internal fun HomeContent(
     onMovieClick: (Int) -> Unit = {},
     onRefresh: () -> Unit = {},
 ) {
+    // Compress the bottom nav bar down to just the selected tab while the user scrolls down
+    // through the feed, and restore it as soon as they scroll back up. The connection only
+    // observes scroll deltas — it never consumes them — so the list and pull-to-refresh are
+    // unaffected.
+    var isNavBarExpanded by rememberSaveable { mutableStateOf(true) }
+    val navBarScrollConnection = remember {
+        object : NestedScrollConnection {
+            override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
+                when {
+                    available.y < -NAV_BAR_TOGGLE_THRESHOLD_PX -> isNavBarExpanded = false
+                    available.y > NAV_BAR_TOGGLE_THRESHOLD_PX -> isNavBarExpanded = true
+                }
+                return Offset.Zero
+            }
+        }
+    }
     Scaffold(
         contentWindowInsets = WindowInsets.safeDrawing,
         topBar = { HomeTopAppBar() },
@@ -58,7 +75,8 @@ internal fun HomeContent(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding),
+                .padding(innerPadding)
+                .nestedScroll(navBarScrollConnection),
         ) {
             Column(modifier = Modifier.fillMaxSize()) {
                 SyncStatusBanner(
@@ -148,9 +166,11 @@ internal fun HomeContent(
             }
             HomeBottomNavBar(
                 selectedTab = HomeBottomNavTab.Home,
+                expanded = isNavBarExpanded,
                 onTabSelected = { tab ->
                     when (tab) {
-                        HomeBottomNavTab.Home -> Unit
+                        // Tapping the compressed pill brings the full bar back.
+                        HomeBottomNavTab.Home -> isNavBarExpanded = true
                         HomeBottomNavTab.Search -> onSearchClick()
                         HomeBottomNavTab.Bookmarks -> onBookmarksClick()
                         HomeBottomNavTab.Recent -> onRecentlyViewedClick()
@@ -161,6 +181,9 @@ internal fun HomeContent(
         }
     }
 }
+
+/** Minimum per-frame scroll delta (in px) that flips the bottom nav bar, so tiny jitters don't. */
+private const val NAV_BAR_TOGGLE_THRESHOLD_PX = 4f
 
 @Preview(showBackground = true)
 @Composable

@@ -1,7 +1,6 @@
 package com.ankitt.themovieshow.core.network.model
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import kotlinx.serialization.*
 
 /**
  * Response of GET /configuration. TMDB image URLs are relative paths (e.g. "/abc123.jpg"); the

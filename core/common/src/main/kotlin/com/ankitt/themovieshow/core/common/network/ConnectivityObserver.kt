@@ -1,7 +1,6 @@
 package com.ankitt.themovieshow.core.common.network
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.*
 
 /**
  * Live device connectivity, shared across the app.

@@ -6,15 +6,10 @@ import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
-import okhttp3.mockwebserver.MockResponse
-import okhttp3.mockwebserver.MockWebServer
-import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertThrows
-import org.junit.Before
-import org.junit.Test
-import retrofit2.HttpException
-import retrofit2.Retrofit
+import okhttp3.mockwebserver.*
+import org.junit.*
+import org.junit.Assert.*
+import retrofit2.*
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 
 /**

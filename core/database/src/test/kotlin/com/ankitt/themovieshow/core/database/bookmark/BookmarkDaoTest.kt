@@ -4,15 +4,10 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import app.cash.turbine.test
 import com.ankitt.themovieshow.core.database.TheMovieShowDatabase
-import com.ankitt.themovieshow.core.database.movie.MovieDao
-import com.ankitt.themovieshow.core.database.movie.MovieEntity
+import com.ankitt.themovieshow.core.database.movie.*
 import kotlinx.coroutines.test.runTest
-import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
-import org.junit.Before
-import org.junit.Test
+import org.junit.*
+import org.junit.Assert.*
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 

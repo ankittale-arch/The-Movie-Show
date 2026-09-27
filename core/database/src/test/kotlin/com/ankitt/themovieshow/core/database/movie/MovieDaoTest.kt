@@ -5,10 +5,8 @@ import androidx.test.core.app.ApplicationProvider
 import app.cash.turbine.test
 import com.ankitt.themovieshow.core.database.TheMovieShowDatabase
 import kotlinx.coroutines.test.runTest
-import org.junit.After
+import org.junit.*
 import org.junit.Assert.assertEquals
-import org.junit.Before
-import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 

@@ -1,11 +1,9 @@
 package com.ankitt.themovieshow.core.common.di
 
-import dagger.Module
-import dagger.Provides
+import dagger.*
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.*
 import javax.inject.Qualifier
 
 /**

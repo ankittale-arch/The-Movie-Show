@@ -5,13 +5,11 @@ import androidx.room.Room
 import com.ankitt.themovieshow.core.database.TheMovieShowDatabase
 import com.ankitt.themovieshow.core.database.bookmark.BookmarkDao
 import com.ankitt.themovieshow.core.database.migration.*
-import com.ankitt.themovieshow.core.database.movie.MovieDao
-import com.ankitt.themovieshow.core.database.movie.MovieDetailDao
+import com.ankitt.themovieshow.core.database.movie.*
 import com.ankitt.themovieshow.core.database.outbox.PendingOperationDao
 import com.ankitt.themovieshow.core.database.recentlyviewed.RecentlyViewedDao
 import com.ankitt.themovieshow.core.database.sync.SyncStateDao
-import dagger.Module
-import dagger.Provides
+import dagger.*
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent

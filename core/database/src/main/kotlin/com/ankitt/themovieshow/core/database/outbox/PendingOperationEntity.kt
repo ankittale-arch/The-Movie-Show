@@ -1,7 +1,6 @@
 package com.ankitt.themovieshow.core.database.outbox
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
 
 /**
  * One queued local mutation that still needs to reach the server — the outbox row that makes an

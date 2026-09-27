@@ -1,13 +1,10 @@
 package com.ankitt.themovieshow.core.common.di
 
-import dagger.Module
-import dagger.Provides
+import dagger.*
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.SupervisorJob
-import javax.inject.Qualifier
-import javax.inject.Singleton
+import kotlinx.coroutines.*
+import javax.inject.*
 
 /**
  * A process-lifetime [CoroutineScope], used only by singletons that must keep working after the

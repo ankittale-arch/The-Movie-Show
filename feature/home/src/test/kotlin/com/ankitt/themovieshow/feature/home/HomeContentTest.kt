@@ -2,16 +2,11 @@ package com.ankitt.themovieshow.feature.home
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onAllNodesWithText
-import androidx.compose.ui.test.onFirst
-import androidx.compose.ui.test.onNodeWithContentDescription
-import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.performClick
 import androidx.navigation3.ui.LocalNavAnimatedContentScope
 import com.ankitt.themovieshow.core.designsystem.theme.TheMovieShowTheme
-import org.junit.Rule
-import org.junit.Test
+import org.junit.*
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
